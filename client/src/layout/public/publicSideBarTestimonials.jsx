@@ -1,9 +1,9 @@
 
 
-const PublicsectionTestimonies = () => {
+const PublicsectionTestimonials = () => {
     return (
         <section className="sidebar-temoignages">Temoignages</section>
     );
 };
 
-export default PublicsectionTestimonies;
+export default PublicsectionTestimonials;

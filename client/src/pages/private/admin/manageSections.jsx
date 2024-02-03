@@ -2,9 +2,9 @@
 
 const ManageSection = () => {
     return (
-        <div>
+        <main>
             ManageSection and shedules
-        </div>
+        </main>
     );
 };
 

@@ -37,8 +37,10 @@ a{
 /* ---Main--- */
 main{
     display: flex;
-    min-height: 80vh;
+    height: 100vh;
+    width: 100vw;
     text-align: center;
+    justify-content: center;
 
 }
 img{
@@ -53,9 +55,7 @@ img{
     border-radius: 20px;    
 
 }
-/* .home-accueil{
-    border: solid black 2px; 
-} */
+
 .sidebar-temoignages{
     background-color: red;
     width: 25%;
@@ -70,16 +70,14 @@ img{
 
 /* ---Footer--- */
 
+footer{
+    position: sticky;
+
+
+}
 table{
     border: solid black 1px;
     font-size: 0.8rem;
-}
-thead{
-    border: solid black 1px;   
-    text-align: center;
-}
-tbody{
-    border: solid black 1px;       
 }
 
 /* --- login --- */

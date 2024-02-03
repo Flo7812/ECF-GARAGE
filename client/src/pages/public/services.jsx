@@ -1,9 +1,9 @@
 
 const Servives = () => {
     return (
-        <div>
+        <main>
             <h1>Services</h1>
-        </div>
+        </main>
     );
 };
 

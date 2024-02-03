@@ -1,10 +1,15 @@
+import { useParams } from "react-router-dom";
 
 
 const Lost = () => {
+    
+    const url = useParams()
+
     return (
-        <div>
+        <main>
             <h1>404</h1>
-        </div>
+            <p>url : {url["*"] }</p>
+        </main>
     );
 };
 

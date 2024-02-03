@@ -1,8 +1,19 @@
 Projet ECF Garge Vincent Parrot
 
-React.js (v- 18.2.0) Javascript Vanille(ES6), Vite.js (v- 5.0.8), node.js (v- 18)/npm (v- ), express.js (v- 4.18.2), MySql (v- 2.18.2)
+React.js (v- 18.2.0) Javascript Vanille(ECMAScript 2023), Vite.js (v- 5.0.12), node.js (v- 21.1.0)/npm (v- 10.2.4), express.js (v- 4.18.2), MySql (v- 2.18.2)
+XAMMP (v-8.2.4) Apache (v- 2.4.56) MariaDB (v- 10.4.28)
+
+IDE : VScode
+    extensions: Database Client JDBC (v- 1.3.4)
+                Thunder Client (v- 2.17.4)
+                Reactjs code snippets (v- 2.4.0)
+
+
 
 Initialisation du Projet :
+
+
+
     client :
             npm create vite@latest (dev)
             npm install

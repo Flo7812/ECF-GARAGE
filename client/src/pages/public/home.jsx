@@ -1,14 +1,14 @@
-import SectionAccueil from "../../layout/public/publicSectionHome";
-import SideBarTemoignages from "../../layout/public/publicSideBarTestimonies";
-import SideBarOccasions from "../../layout/public/publicSideBarSecondHand"
+import SectionHome from "../../layout/public/publicSectionHome";
+import SideBarTestimonials from "../../layout/public/publicSideBarTestimonials";
+import SideBarSecondHand from "../../layout/public/publicSideBarSecondHand"
 
 const Home = () => {
     return (
         <main>
             
-            <SideBarOccasions/>
-            <SectionAccueil/>
-            <SideBarTemoignages/>
+            <SideBarSecondHand/>
+            <SectionHome/>
+            <SideBarTestimonials/>
 
 
         </main>

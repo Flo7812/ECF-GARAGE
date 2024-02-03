@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import { 
-    PublicLayout, Home, Services, SecondHand, Testimony, Login,
-    UserLayout, UserHome, CreateCars, ManageCars, ManageTestimony,
-    AdminLayout, AdminHome, CreateUser, ManageUser, ManageSection,
+    PublicLayout, Home, Services, SecondHand, Testimonials,CardCar, Login,
+    UserLayout, UserHome, CreateCar, ManageCars, ManageTestimonials,
+    AdminLayout, AdminHome, CreateUser, ManageUsers, ManageSections,
 } from "./index"
 
 import Lost from '@/pages/public/lost';
@@ -17,8 +17,9 @@ export const PublicRouter = () => {
                     <Route path="/home" element={<Home/>}/>
                     <Route path="/services" element={<Services/>}/>
                     <Route path="/occasions" element={<SecondHand/>}/>
-                    <Route path="/temoignages" element={<Testimony/>}/>
-                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/temoignages" element={<Testimonials/>}/>
+                    <Route path='/occasions/fiche/:id' element={<CardCar/>}/>
+                    <Route path="/auth" element={<Login/>}/>
                 </Route>
                 <Route path='*' element={<Lost/>}/>
             </Routes>
@@ -36,14 +37,16 @@ export const UserRouter = () => {
                     <Route index element={<UserHome/>}/>
 
                     <Route path="/home" element={<UserHome/>}/>
-                    <Route path="/addCars" element={<CreateCars/>}/>
+                    <Route path="/addCar" element={<CreateCar/>}/>
                     <Route path="/cars" element={<ManageCars/>}/>
-                    <Route path="/testimonies" element={<ManageTestimony/>}/>
+                    <Route path="/testimonials" element={<ManageTestimonials/>}/>
+                    
 
                     <Route path="/publicHome" element={<Home/>}/>
                     <Route path="/services" element={<Services/>}/>
                     <Route path="/occasions" element={<SecondHand/>}/>
-                    <Route path="/temoignages" element={<Testimony/>}/>
+                    <Route path="/temoignages" element={<Testimonials/>}/>
+                    <Route path='/occasions/fiche/:id' element={<CardCar/>}/>
 
                 </Route>
                 <Route path="*" element={<Lost/>}/>
@@ -63,17 +66,18 @@ export const AdminRouter = () => {
 
                     <Route path="/home" element={<AdminHome/>}/>
                     <Route path="/addUser" element={<CreateUser/>}/>
-                    <Route path="/users" element={<ManageUser/>}/>
-                    <Route path="/sections" element={<ManageSection/>}/>
+                    <Route path="/users" element={<ManageUsers/>}/>
+                    <Route path="/sections" element={<ManageSections/>}/>
 
-                    <Route path="/addCars" element={<CreateCars/>}/>
+                    <Route path="/addCar" element={<CreateCar/>}/>
                     <Route path="/cars" element={<ManageCars/>}/>
-                    <Route path="/testimonies" element={<ManageTestimony/>}/>
+                    <Route path="/testimonials" element={<ManageTestimonials/>}/>
 
                     <Route path="/publicHome" element={<Home/>}/>
                     <Route path="/services" element={<Services/>}/>
                     <Route path="/occasions" element={<SecondHand/>}/>
-                    <Route path="/temoignages" element={<Testimony/>}/>
+                    <Route path="/temoignages" element={<Testimonials/>}/>
+                    <Route path='/occasions/fiche/:id' element={<CardCar/>}/>
 
                 </Route>
                 <Route path="*" element={<Lost/>}/>

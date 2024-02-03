@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter /* basename="/home" */>
         <Routes>
           <Route path="/*" element={<PublicRouter/>}/>
           <Route path="user/*" element={<UserRouter/>}/>

@@ -2,9 +2,9 @@
 
 const ManageCars = () => {
     return (
-        <div>
+        <main>
             manage cars
-        </div>
+        </main>
     );
 };
 

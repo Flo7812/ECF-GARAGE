@@ -13,15 +13,15 @@ const UserHeader= () => {
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <ul>
-                    <li><Link to='/user/addCars'>Ajout Voiture</Link></li>
+                    <li><Link to='/user/addCar'>Ajout Voiture</Link></li>
                     <li><Link to='/user/cars'>Voitures</Link></li>
-                    <li><Link to='/user/testimonies'>temoignages</Link></li>
-                    <li><Link to='/user/home'>compte</Link></li>
+                    <li><Link to='/user/testimonials'>Temoignages</Link></li>
+                    <li><Link to='/user/home'>Compte</Link></li>
                 </ul>
             </nav>
             <div>
                 <span>User Connect:</span>
-                <button>Logout</button>
+                <Link to={'/home'}><button>Logout</button></Link>
             </div>
         </header>
     );

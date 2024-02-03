@@ -13,10 +13,10 @@ const AdminHeader = () => {
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <ul>
-                    <li><Link to='/admin/addCars'>Ajout Voiture</Link></li>
+                    <li><Link to='/admin/addCar'>Ajout Voiture</Link></li>
                     <li><Link to='/admin/Cars'>Voitures</Link></li>
-                    <li><Link to='/admin/testimonies'>temoignages</Link></li>
-                    <li><Link to='/admin/home'>compte</Link></li>
+                    <li><Link to='/admin/testimonials'>Temoignages</Link></li>
+                    <li><Link to='/admin/home'>Compte</Link></li>
                 </ul>
                 <ul>
                     <li><Link to='/admin/addUser'>Ajout Employé</Link></li>
@@ -27,7 +27,7 @@ const AdminHeader = () => {
             </nav>
             <div>
                 <span>User Connect:</span>
-                <button>Logout</button>
+                <Link to={'/home'}><button>Logout</button></Link>
             </div>
         </header>
     );

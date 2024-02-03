@@ -1,35 +1,60 @@
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+
+
+
+
 
 
 export default function CreateUser(){
 
+    const navigate = useNavigate()
+    
+    const [datas, setDatas] = useState([''])
+    
+    const onChange =()=>{
+
+    }
+
+    async function addUser(e){
+        e.preventDefault()
+        datas.forEach(data => {
+            if( data === ''){
+                alert('merci de remplir tout les champs ')
+                return
+            } })
+        
+    }
+
+
     return(
         <>
-        <div className="login__container">
+        <main className="login__container">
             <div className="form__container">
             <form className="form" action="" method="post">
                 <h2>Bienvenue</h2>
                 <div className="register__flex">
-                    <input className="input__info" type="text" name="lastName" placeholder="Nom" required/><br />
-                    <input className="input__info" type="text" name="firstName" placeholder="Prenom" required/>            
-                    <input className="input__info" type="text" name="pseudo" placeholder="Pseudo/ Identifaint" required/><br />
-                    <input className="input__info" type="date" name="birthDate" placeholder="DDN" required/>            
+                    <input className="input__info" type="text" name="lastName" placeholder="Nom" onChange={onChange}/><br />
+                    <input className="input__info" type="text" name="firstName" placeholder="Prenom" onChange={onChange}/>            
+                    <input className="input__info" type="text" name="pseudo" placeholder="Pseudo/ Identifaint" onChange={onChange}/><br />
+                    <input className="input__info" type="date" name="birthDate" placeholder="DDN" onChange={onChange}/>            
                 </div>
                 <div className="register__flex">
-                    <input className="input__info" type="text" name="adress" placeholder="Adresse" required/><br />
-                    <input className="input__info" type="tel" name="tel" placeholder="Telephone" required/>            
-                    <input className="input__info" type="email" name="email" placeholder="Email" required/><br />
-                    <input className="input__info" type="password" name="password" placeholder="Create password" required/>    
+                    <input className="input__info" type="text" name="adress" placeholder="Adresse" onChange={onChange}/><br />
+                    <input className="input__info" type="tel" name="tel" placeholder="Telephone" onChange={onChange}/>            
+                    <input className="input__info" type="email" name="email" placeholder="Email" onChange={onChange}/><br />
+                    <input className="input__info" type="password" name="password" placeholder="Create password" onChange={onChange}/>    
                 </div>
-                <input className="input__button form__submit" type="submit" value="envoyer" onClick={postDatas}/><br/>
+                <input className="input__button form__submit" type="submit" value="envoyer" onClick={addUser}/><br/>
             </form><br />
 
             </div>
             
-        </div>
+        </main>
         </>
     )
 
-    async function postDatas(e){
+/*     async function postDatas(e){
         const form = document.querySelector('form')
         e.preventDefault()
         const datas = new FormData(form)
@@ -54,7 +79,7 @@ export default function CreateUser(){
         console.log(jsonDatas);
         
         try {
-            const r =  await fetch("http://127.0.0.1:5500/register", {
+            const r =  await fetch("http://127.0.0.1:5700", {
                 method: "POST",
                 headers:{
                     "content-type" : "application/json"
@@ -74,7 +99,7 @@ export default function CreateUser(){
         
     }
 
-        
+         */
 
 }
 

@@ -2,9 +2,9 @@
 
 const ManageUser = () => {
     return (
-        <div>
-            ManageUser
-        </div>
+        <main>
+            Manage Users
+        </main>
     );
 };
 
