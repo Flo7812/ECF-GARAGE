@@ -1,15 +1,17 @@
 require('dotenv').config();
 const express = require('express')
 const cors = require('cors')
-const mysql = require('mysql')
-const dbConfig = require('./dbConfig')
+// const mysql = require('mysql2')
+// const dbConfig = require('./dbConfig')
 const port = process.env.PORT 
+const db = require('./mysql/dbinit')
 
 
 const api = express()
 api.use(cors())
+// api.use(db)
 
-const myDb = mysql.createConnection({
+/* const myDb = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: dbConfig.password,
@@ -26,7 +28,7 @@ myDb.connect((err) =>{
         console.log("connection reussie à mysql !!!");
     }
 });
-
+ */
 
 api.listen(port, ()=>{
     console.log(`server online on port : ${port}`)
