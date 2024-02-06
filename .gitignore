@@ -33,3 +33,6 @@ client/src/#unUsed/publicRouter.jsx
 client/src/#unUsed/UserIndex.js
 client/src/#unUsed/userRouter.jsx
 client/src/#unUsed/addHTMLelement.js
+api/mysql/db.js
+.gitignore
+api/mysql/initTransaction.js

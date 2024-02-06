@@ -4,7 +4,9 @@ const cors = require('cors')
 // const mysql = require('mysql2')
 // const dbConfig = require('./dbConfig')
 const port = process.env.PORT 
-const db = require('./mysql/dbinit')
+// const db = require('./mysql/dbinit')
+const db = require('./mysql/init')
+// const db2 = require('./mysql/db')
 
 
 const api = express()
