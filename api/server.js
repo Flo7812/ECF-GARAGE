@@ -1,16 +1,22 @@
-const express = require('express')
-const cors = require('cors')
-const port = process.env.PORT 
-let {sequelize} = require('sequelize') 
+
+const express = require('express');
+const cors = require('cors');
+const DB = require('./dbConfig');
 
 
-const api = express()
-api.use(cors())
+const api = express();
+api.use(cors());
+api.use(express.json());
 
+DB.authenticate()
+    .then(()=> console.log("DB garagevparrot is connected"))
+    .then(()=>
+        api.listen(process.env.PORT, ()=>{
+        console.log(`server online on port : ${process.env.PORT }`)
+        })
+    )
+    .catch(e => console.log('Error connection :', e))
 
-api.listen(port, ()=>{
-    console.log(`server online on port : ${port}`)
-})
 
 api.get("/", (req, res)=>{
     res.send("hello from node!")

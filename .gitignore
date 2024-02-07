@@ -35,3 +35,4 @@ client/src/#unUsed/userRouter.jsx
 client/src/#unUsed/addHTMLelement.js
 
 api/initTransaction.js
+api/secureDBenv.js

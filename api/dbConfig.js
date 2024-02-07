@@ -1,14 +1,15 @@
 
-module.exports = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
-}
+const {Sequelize} = require('sequelize');
 
-module.exports = {
-    host: process.env.DB_HOST_GVP,
-    user: process.env.DB_USER_GVP,
-    password: process.env.DB_PASSWORD_GVP,
-    database: process.env.DB_DATABASE_GVP,
-}
+let sequelize = new Sequelize(
+    process.env.DB_DATABASE_GVP ,process.env.DB_USER_GVP, process.env.DB_PASSWORD_GVP,{
+        host: process.env.DB_HOST_GVP,
+        port: process.env.DB_PORT_GVP,
+        dialect: 'mysql',
+        logging: false
+    }
+)
+
+sequelize.sync()
+
+module.exports = sequelize

@@ -1,4 +1,4 @@
-Projet ECF Garge Vincent Parrot
+Project ECF "Garage Vincent Parrot"
 
 Serveur:
     XAMMP 8.2.4
@@ -16,33 +16,70 @@ Back(api)
     Node.js 21.1.0
     NPM 10.2.4 
     Express.js 4.18.2
+    ORM : Sequelize 6.36.0
 
 
 IDE : VScode
-    extensions: Database Client JDBC (v- 1.3.4)
-                Thunder Client (v- 2.17.4)
-                Reactjs code snippets (v- 2.4.0)
+    extensions: Database Client JDBC 1.3.4
+                Thunder Client 2.17.4
+                Reactjs code snippets 2.4.0
 
+    packages api: react-router-dom 6.23.3
+                  react-router 1.3.8 (Unnecessary with React 18) 
+                  axios 1.6.7 
+                  jwt
 
-Initialisation du Projet :
+    packages client:  dotenv 16.4.1
+                      mysql2 3.9.1
+                      cors 2.8.5
+                      sequelize
+                      bcrypt 5.1.1
 
+/*********************************************************************/
+            Project initialization :
+/*********************************************************************/
     client :
-            npm create vite@latest (dev)
+            npm create vite@latest 
             npm install
-            npm install react-router-dom(6.23.3) react-router(non necessaire - 1.3.8) axios(1.6.7 )
+            npm install react-router-dom react-route axios jwt
             npm init -y
             git init
 
             start = npm run dev : "vite"
 
         api:
-            npm install express(4.18.12) mysql2(3.9.1) cors(2.8.5) axios(1.6.7) sequelize(6.36.0)
-            npm install dotenv (dev) (v- 16.4.1)
+            npm install express dotenv mysql2 cors sequelize bcrypt
+            npm init -y
             git init
-
-            start = npm start : "node --watch server.js"
-
+            New-Item .gitgnore
 
 
+/*********************************************************************/
+/***           To start the application in dev mode                ***/
+/*********************************************************************/
 
+CMD: cd/api
+    /**************************************************/
+    /********** Initializing the database *************/
 
+        npm run initDevDB ("node -r dotenv/config initDevDB.js")
+
+    /**************************************************/
+    /********** Start the API  ************************/    
+
+        npm start ("node -r dotenv/config --watch server.js")
+
+CMD: cd/client
+    /**************************************************/
+    /********** Start the application  ****************/
+
+        npm run dev ("vite")
+
+/*********************************************************************/
+/***                   To Build the project                        ***/    
+/*********************************************************************/
+
+    /**************************************************/
+    /********** Initializing the database *************/
+
+        node initBuildDB.js 

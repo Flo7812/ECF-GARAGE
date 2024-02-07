@@ -1,9 +1,9 @@
 
 export default class User{
 
-    constructor(fisrtName){
+    constructor(){
 
-        fisrtName = this.fisrtName
+        
 
         
     }
