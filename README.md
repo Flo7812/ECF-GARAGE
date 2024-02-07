@@ -55,6 +55,13 @@ IDE : VScode
 /*********************************************************************/
 /***           To start the application in dev mode                ***/
 /*********************************************************************/
+! Please make a .env file with a port for the API and yours DB informations !
+like:
+    DB_HOST="***your host***" as default "localhost"
+    DB_USER="***your name*** "
+    DB_PASSWORD="***your password***"
+    DB_DATABASE= "***please let empty this field***"
+    DB_PORT= "***your DB port***" as default for Mysql 3306
 
 CMD: cd/api
     /**************************************************/
