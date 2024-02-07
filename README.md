@@ -45,8 +45,6 @@ IDE : VScode
             npm init -y
             git init
 
-            start = npm run dev : "vite"
-
         api:
             npm install express dotenv mysql2 cors sequelize bcrypt
             npm init -y
