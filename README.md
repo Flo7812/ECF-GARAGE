@@ -36,49 +36,54 @@ IDE : VScode
                       bcrypt 5.1.1
 
 /*********************************************************************/
-            Project initialization :
+/***                Project initialization                         ***/
 /*********************************************************************/
-    client :
+    api:
+        npm install express dotenv mysql2 cors sequelize bcrypt
+        npm init -y
+        git init
+        New-Item .gitgnore
+
+    client:
             npm create vite@latest 
             npm install
             npm install react-router-dom react-route axios jwt
             npm init -y
             git init
 
-        api:
-            npm install express dotenv mysql2 cors sequelize bcrypt
-            npm init -y
-            git init
-            New-Item .gitgnore
 
 
 /*********************************************************************/
 /***           To start the application in dev mode                ***/
 /*********************************************************************/
+
 ! Please make a .env file with a port for the API and yours DB informations !
-like:
+
+like{
     DB_HOST="***your host***" as default "localhost"
-    DB_USER="***your name*** "
+    DB_USER="***your name***"
     DB_PASSWORD="***your password***"
     DB_DATABASE= "***please let empty this field***"
     DB_PORT= "***your DB port***" as default for Mysql 3306
+}
 
-CMD: cd/api
+CMD: cd api
     /**************************************************/
-    /********** Initializing the database *************/
+    /* Initializing and reset the database and users **/
 
         npm run initDevDB ("node -r dotenv/config initDevDB.js")
-
+    
     /**************************************************/
-    /********** Start the API  ************************/    
-
+    /********** Start the API  ************************/   
+    
         npm start ("node -r dotenv/config --watch server.js")
 
-CMD: cd/client
+CMD: cd client
     /**************************************************/
     /********** Start the application  ****************/
 
         npm run dev ("vite")
+    As default the application run on port 127.0.0.1:517
 
 /*********************************************************************/
 /***                   To Build the project                        ***/    

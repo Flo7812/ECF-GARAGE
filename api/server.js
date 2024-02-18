@@ -1,23 +1,56 @@
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
-const express = require('express');
-const cors = require('cors');
-const DB = require('./dbConfig');
+const PORT = process.env.PORT || 1998
 
+/*********** Server ********************/
+const api = express()
 
-const api = express();
+api.use(bodyParser.json());
+api.use(bodyParser.urlencoded({ extended: true }));
 api.use(cors());
-api.use(express.json());
 
-DB.authenticate()
-    .then(()=> console.log("DB garagevparrot is connected"))
-    .then(()=>
-        api.listen(process.env.PORT, ()=>{
-        console.log(`server online on port : ${process.env.PORT }`)
-        })
-    )
-    .catch(e => console.log('Error connection :', e))
+/********** Middlewares requires *********************************/
+
+const checkTokenAccess = require('./Middleware/in/checkTokenAccess')
+const checkRoleAccess = require('./Middleware/in/checkRoleAccess')
+
+/********** Start server and DB **********/
+
+api.listen(PORT, async()=>{
+    console.log(`Server running on PORT: ${PORT} connected`);
+    require('./DB/Connection/syncSeq')
+})
+
+/********** Controllers Requires ******/
+const { getMainSections } = require('./Controllers/sections/sectionsC')
+const { getCardCars } = require('./Controllers/cars/carsC')
+const { getValidateTestimonials } = require('./Controllers/Testimonials/testimonialsC')
+
+/*********** Router Requires **********/
+
+const cars_router = require('./Routes/Public/cars')
+const sections_router = require('./Routes/Public/sections')
+const testimony_router = require('./Routes/Public/testimonials')
+const shedules_router = require('./Routes/Public/shedules')
+
+const login_router = require('./Routes/Public/login')
+const user_router = require('./Routes/Private/USER/router_UR')
+const admin_router = require('./Routes/Private/ADMIN/router_AR')
 
 
-api.get("/", (req, res)=>{
-    res.send("hello from node!")
+/*********** Router **********/
+api.get('', getMainSections, getValidateTestimonials, getCardCars)
+api.use('/cars', cars_router)
+api.use('/services', sections_router)
+api.use('/testimonials', testimony_router)
+api.use('/schedules', shedules_router)
+
+api.use('/login', login_router)
+api.use('/user',checkTokenAccess , user_router)
+api.use('/admin',checkTokenAccess , checkRoleAccess, admin_router)
+
+api.get('*',(req, res)=>{
+    res.status(404).send('Nothing to do here!')
 })
