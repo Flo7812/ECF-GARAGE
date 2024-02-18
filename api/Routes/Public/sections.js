@@ -1,6 +1,6 @@
 const express = require('express')
 let router = express.Router()
-const { PageSection, Section } = require('../../DB/Models/index');
+const { ServicesSection, MainSection } = require('../../DB/Models/index');
 const {  } = require('../../Controllers/sections/sectionsC')
 
 

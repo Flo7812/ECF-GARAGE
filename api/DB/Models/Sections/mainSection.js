@@ -1,12 +1,7 @@
 const { DataTypes } = require('sequelize');
-<<<<<<< Updated upstream
 const sequelize = require('../../init/GVPAsequelize');
-=======
-const sequelize = require('../../Connection/GVP');
->>>>>>> Stashed changes
 
-
-const ShedulesTable = sequelize.define('shedules_table',{
+const MainSection = sequelize.define('section_main',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -15,18 +10,25 @@ const ShedulesTable = sequelize.define('shedules_table',{
     },
     title:{
         type: DataTypes.STRING,
-        defaultValue: 'Horaires',
         allowNull: false
     },
-    modelWeek:{
+    content:{
         type: DataTypes.TEXT,
         defaultValue: ''
-    }
+    },
+    img:{
+        type: DataTypes.BLOB,
+        
+    },
+    position:{
+        type: DataTypes.INTEGER(2),
+        unique: true
+
+    },
 },{
-    paranoid: true
+    paranoid: true,
+    freezeTableName: true
 });
 
-
-
-module.exports = ShedulesTable
-// console.log(ShedulesTable === sequelize.models.ShedulesTable);
+module.exports = MainSection
+// console.log(Section === sequelize.models.Section);

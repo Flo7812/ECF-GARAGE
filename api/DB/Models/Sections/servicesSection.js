@@ -1,8 +1,12 @@
 const { DataTypes } = require('sequelize');
+<<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
+const sequelize = require('../../init/GVPAsequelize');
+=======
 const sequelize = require('../../Connection/GVP');
 const SectionPage = require('./sectionPage')
+>>>>>>> Stashed changes:DB/Models/Sections/section.js
 
-const Section = sequelize.define('section',{
+const ServicesSection = sequelize.define('section_service',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -22,6 +26,11 @@ const Section = sequelize.define('section',{
         
     },
     position:{
+<<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
+        type: DataTypes.INTEGER(2),
+
+    },
+=======
         type: DataTypes.INTEGER,
         defaultValue: 0
 
@@ -31,10 +40,14 @@ const Section = sequelize.define('section',{
         allowNull: false,
 
     }
+>>>>>>> Stashed changes:DB/Models/Sections/section.js
 },{
     paranoid: true
 });
 
+<<<<<<< Updated upstream:DB/Models/Sections/servicesSection.js
+module.exports = ServicesSection
+=======
 Section.belongsTo(SectionPage,{
     onDelete: 'CASCADE',
     foreignKey:'page', 
@@ -59,4 +72,5 @@ Section.getSectionbyPage = async (page)=>{
 }
 
 module.exports = Section
+>>>>>>> Stashed changes:DB/Models/Sections/section.js
 // console.log(Section === sequelize.models.Section);

@@ -1,28 +1,41 @@
-<<<<<<< Updated upstream
-=======
-const  Section  = require('../../DB/Models/Sections/section');
-const  sectionPage  = require('../../DB/Models/Sections/sectionPage');
+const express = require('express')
+let router = express.Router()
+const  MainSection  = require('../../../DB/Models/Sections/mainSection');
+const  ServicesSection  = require('../../../DB/Models/Sections/mainSection');
+const {} = require('../../../Controllers/sections/sectionsC')
 
 
-exports.getAllSections = async (req, res)=>{
+
+
+//get all sections
+router.get('', async(req, res)=>{
     try {
-
-        const sections = await MainSection.findAll()
+        const sections = []
+        const main = await MainSection.findAll()
+        const services = await ServicesSection.findAll()
+        const datasSection= {
+            main,
+            services
+            }
+        sections.push(datasSection)
         return res.status(200).json({data: sections})
     } catch (error) {
         res.status(500).json({message: "Error Database", error})
     }
-}
+})
 
-exports.getMainSections = async(req, res)=>{
-    Section.findAll()
-    .then(mainSections => {
-        return res.status(200).json({data: mainSections})
-    })
-    .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
 
-exports.getMainSectionById = async(req, res)=>{
+//get all mainSections
+router.get('/main-section', (req, res)=>{
+    MainSection.findAll()
+        .then(mainSections => {
+            return res.status(200).json({data: mainSections})
+        })
+        .catch(e => res.status(500).json({message: "Error Database", error: e}))    
+});
+
+//get a mainSection by id
+router.get('/main-section/:id', (req, res)=>{
     let mSectionId = req.params.id
     if(!mSectionId){
         return res.status(400).json({message: 'missing id or not id'})
@@ -34,18 +47,20 @@ exports.getMainSectionById = async(req, res)=>{
             }
             return res.status(200).json({data: mainSection})
         })
-        .catch(e => res.status(500).json({message: "Error Database", error: e}))   
-}
+        .catch(e => res.status(500).json({message: "Error Database", error: e}))    
+});
 
-exports.getServicesSections = (req, res)=>{
+//get all servicesSections
+router.get('/services-section', (req, res)=>{
     ServicesSection.findAll()
-    .then(servicesSections => {
-        return res.status(200).json({data: servicesSections})
-    })
-    .catch(e => res.status(500).json({message: "Error Database", error: e}))  
-}
+        .then(servicesSections => {
+            return res.status(200).json({data: servicesSections})
+        })
+        .catch(e => res.status(500).json({message: "Error Database", error: e}))    
+});
 
-exports.getServicesSectionById = (req, res)=>{
+//get a serviceSection by id
+router.get('/services-section/:id', (req, res)=>{
     let sSectionId = req.params.id
     if(!sSectionId){
         return res.status(400).json({message: 'missing id or not id'})
@@ -58,9 +73,11 @@ exports.getServicesSectionById = (req, res)=>{
             return res.status(200).json({data: servicesSection})
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))    
-}
+});
 
-exports.addMainSection = (req, res)=>{
+
+//add a Main Section
+router.put('/main-section', (req, res)=>{
     let {title, content, img, position} = req.body 
     if(!title || !content ){
         return res.status(400).json({message: "Data(s) missing"})
@@ -74,10 +91,11 @@ exports.addMainSection = (req, res)=>{
             MainSection.create(req.body)
                 .then(mSection => res.json({message: 'Section created', data: mSection}))
                 .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
-            }).catch(e => res.status(500).json({message: "Error Database", error: e}))   
-}
+            }).catch(e => res.status(500).json({message: "Error Database", error: e}))      
+})
 
-exports.addServicesSection = (req, res)=>{
+//add a Service Section
+router.put('/services-section', (req, res)=>{
     let {title, content, img, position} = req.body 
     if(!title || !content ){
         return res.status(400).json({message: "Data(s) missing"})
@@ -91,10 +109,11 @@ exports.addServicesSection = (req, res)=>{
             ServicesSection.create(req.body)
                 .then(sSection => res.json({message: 'Section created', data: sSection}))
                 .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
-            }).catch(e => res.status(500).json({message: "Error Database", error: e})) 
-}
+            }).catch(e => res.status(500).json({message: "Error Database", error: e}))      
+})
 
-exports.updateMainSectionById = (req, res)=>{
+//Modify a main Section
+router.patch('/main-section/:id', (req, res)=>{
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -110,9 +129,10 @@ exports.updateMainSectionById = (req, res)=>{
                 .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
-exports.updateServicesSectionById = (req, res)=>{
+//Modify a services Section
+router.patch('/services-section/:id', (req, res)=>{
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -128,9 +148,10 @@ exports.updateServicesSectionById = (req, res)=>{
                 .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
         })
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
-exports.softDeleteMainSectionById = (req, res)=>{
+//soft delete a main section
+router.delete('/main-section/:id', (req, res)=>{
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -138,9 +159,10 @@ exports.softDeleteMainSectionById = (req, res)=>{
     MainSection.destroy({where: {id:mSectionId}})
         .then(() => res.status(204).json({}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
-exports.softDeleteServicesSectionById = (req, res)=>{
+//soft delete a services section
+router.delete('/services-section/:id', (req, res)=>{
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -148,9 +170,10 @@ exports.softDeleteServicesSectionById = (req, res)=>{
     ServicesSection.destroy({where: {id:sSectionId}})
         .then(() => res.status(204).json({}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
-exports.restorMainSectionById = (req, res)=>{
+//restore a soft deleted main-section
+router.post('/main-section/:id',  (req, res) => {
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -158,9 +181,10 @@ exports.restorMainSectionById = (req, res)=>{
     MainSection.restore({where: {id: mSectionId}})
         .then((res.status(200).json({message: `Section ${mSectionId} restored`})))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
-exports.restoreServicesSectionById = (req, res)=>{
+//restore a soft deleted services-section
+router.post('/services-section/:id',  (req, res) => {
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -168,9 +192,10 @@ exports.restoreServicesSectionById = (req, res)=>{
     ServicesSection.restore({where: {id: sSectionId}})
         .then((res.status(200).json({message: `Section ${sSectionId} restored`})))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
-exports.trashDeleteMainSectionById = (req, res)=>{
+//trash delete a main section
+router.delete('/main-section/trash/:id',  (req, res)=>{
     let mSectionId = parseInt(req.params.id)
     if(!mSectionId){
         return res.status(400).json({message: "id parameter missing"})
@@ -178,9 +203,10 @@ exports.trashDeleteMainSectionById = (req, res)=>{
     MainSection.destroy({where: {id:mSectionId}, force: true})
         .then(() => res.status(204).json({}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
-exports.trashDeleteServicesSectionById = (req, res)=>{
+//trash delete a services section
+router.delete('/services-section/trash/:id',  (req, res)=>{
     let sSectionId = parseInt(req.params.id)
     if(!sSectionId){
         return res.status(400).json({message: "id parameter missing"})
@@ -188,18 +214,19 @@ exports.trashDeleteServicesSectionById = (req, res)=>{
     ServicesSection.destroy({where: {id:sSectionId}, force: true})
         .then(() => res.status(204).json({}))
         .catch(e => res.status(500).json({message: "Error Database", error: e}))
-}
+});
 
 // get deleted sections /***in progress ***/
-exports.getAllDeletedSections = (req, res)=>{
+router.get('/deleted',  async (req, res) => {
     /*   try {
-        // Trouver toutes les voitures soft deleted
-        const deletedCars = await Car.findAll({
-            where: { deletedAt: { [Op.ne]: null } } // Sélectionne les lignes avec deletedAt non nul (soft deleted)
-        });
-        res.json({ deletedCars });
-    } catch (error) {
-        res.status(500).json({ message: "Erreur de la base de données", error });
-    }*/
-}
->>>>>>> Stashed changes
+           // Trouver toutes les voitures soft deleted
+           const deletedCars = await Car.findAll({
+               where: { deletedAt: { [Op.ne]: null } } // Sélectionne les lignes avec deletedAt non nul (soft deleted)
+           });
+           res.json({ deletedCars });
+       } catch (error) {
+           res.status(500).json({ message: "Erreur de la base de données", error });
+       }*/
+}); 
+
+module.exports = router
