@@ -1,9 +1,5 @@
 const { DataTypes } = require('sequelize');
-<<<<<<< Updated upstream
-const sequelize = require('../../init/GVPAsequelize');
-=======
 const sequelize = require('../../Connection/GVP');
->>>>>>> Stashed changes
 
 
 const ShedulesTable = sequelize.define('shedules_table',{

@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 const  Section  = require('../../DB/Models/Sections/section');
 const  sectionPage  = require('../../DB/Models/Sections/sectionPage');
 
@@ -202,4 +200,3 @@ exports.getAllDeletedSections = (req, res)=>{
         res.status(500).json({ message: "Erreur de la base de données", error });
     }*/
 }
->>>>>>> Stashed changes
