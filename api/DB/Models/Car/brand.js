@@ -19,154 +19,76 @@ const Brand = sequelize.define('car_brand',{
 /************* Get All *********************/
 
 Brand.getNames = async function(){
-    try {
+
         const allBrands = []
         const brands = await Brand.findAll()
         for (const brand of brands) {
             allBrands.push(brand.name)    
             }
         return allBrands
-    } catch (error) {
-        console.log('Error from Model Brand : Can\'t find brands', error)
-    }
+
 }
 
 Brand.getIds = async function(){
-    try {
+
         
         const brands = await Brand.findAll({attributes: [id]})
         const allBrands = brands.map(brand => brand.id)
         return allBrands
-    } catch (error) {
-        console.log('Error from Model Brand : Can\'t find brands', error)
-    }
+
 }
 
 /************* Get One *********************/
 
 Brand.getName = async function(id){
-    try {
-        const brand = await Brand.findByPk(id)
+
+    const brand = await Brand.findByPk(id)
+    if(brand){
         return brand.name
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t find this brand with id: ${this.id}`, error)
-    }  
-}
-Brand.getName = function(){
-    return this.name
+    }else{
+        return
+    }
+    
 }
 
-Brand.getId = async function(name){
-    try {
-        const br  = toFSU(name)
-        const brand = await Brand.findOne({where:{name : br}})
-        console.log(brand.id);
+Brand.getId = async function(n){
+
+    const name  = toFSU(n)
+    const brand = await Brand.findOne({where:{name : name}})
+    if(brand){
         return brand.id
-        
-    } catch (error) {
-        return console.log(`Error from Model Brand : Can\'t find this brand :${this.name}`, error)
     }
+    else{
+        return
+    }
+    
+
 }
 
-/********* Instance or Modify *********/
 
-Brand.instance = async function(brand){
-    try {
-        const newBrand = await Brand.create({name : brand})
-        if(newBrand){
-            return newBrand
-        }else{
-            throw new Error(`Unable to create this Brand name :${this.brand}`)
-        }
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t create this brand : ${this.brand}`, error)
-    }
-}
-
-Brand.uptdateByName = async function(values, name){
-    try {
+Brand.uptdateByName = async function(values, n){
+    const name = toFSU((n))
+    const br = await Brand.findOne({where:{name : name}})
+    if(br){
         const updatedBrand = await Brand.update(values, {where: {name : name}})
-        if(updatedBrand ){
-            return updatedBrand
-        }else{
-            throw new Error(`Unable to uptdate this Brand name :${this.name}`)
-        }
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t uptadte this brand : ${this.brand}`, error)
+        return updatedBrand
+    }else{
+        return
     }
 }
 
-Brand.uptdateById = async function(values, id){
-    try {
-        const updatedBrand = await Brand.update(values, {where: {id : id}})
-        if(updatedBrand ){
-            return updatedBrand
-        }else{
-            throw new Error(`Unable to uptdate this Brand id :${this.id}`)
-        }
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t alter this brand with id : ${this.brand}`, error)
+
+Brand.uptdateById = async function(name, id){
+
+    const brand = await Brand.findByPk(id)
+    if(brand){
+        const updatedBrand = await Brand.update(name, {where: {id : id}})
+        return updatedBrand
+    }else{
+        return
     }
 }
 
-/***********Delete Restore and Get Deleted *********/
-Brand.softDeleteByName = async function(name){
-    try {
-        await Brand.destroy({where : {name : name}})
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t soft delete this brand : ${this.name}`, error)
-    }   
-}
-
-Brand.softDeleteById = async function(id){
-    try {
-        await Brand.destroy({where : {id : id}})
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t soft delete this brand with id: ${this.id}`, error)
-    }   
-}
-
-Brand.restoreByName= async function(name){
-    try {
-        const restoredBrand = await Brand.restore({where : {name : name}})
-        if(restoredBrand ){
-            return restoredBrand
-        }else{
-            throw new Error(`Unable to restore this Brand name :${this.name}, wrong name or trash deleted`)
-        }
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t restore this brand : ${this.name}`, error)
-    }   
-}
-
-Brand.restoreById= async function(id){
-    try {
-        const restoredBrand = await Brand.restore({where : {id : id}})
-        if(restoredBrand ){
-            return restoredBrand
-        }else{
-            throw new Error(`Unable to restore this Brand id :${this.id}, wrong id or trash deleted`)
-        }
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t restore this brand with id: ${this.id}`, error)
-    }   
-}
-
-Brand.TrashDeleteByName = async function(name){
-    try {
-        await Brand.destroy({where : {name : name}, force: true})
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t trash delete this brand : ${this.name}`, error)
-    }     
-}
-
-Brand.TrashDeleteById = async function(id){
-    try {
-        await Brand.destroy({where : {id : id}, force: true})
-    } catch (error) {
-        console.log(`Error from Model Brand : Can\'t trash delete this brand with this id: ${this.id}`, error)
-    }     
-}
 
 Brand.getAllDeleted= async function(){
     try {

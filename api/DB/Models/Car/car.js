@@ -22,7 +22,8 @@ const Car = sequelize.define('Car',{
     },
     brand:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     model:{
         type: DataTypes.INTEGER,
@@ -104,7 +105,7 @@ Car.belongsTo(User,{
 })
 User.hasMany(Car, {foreignKey: 'deletedBy'})
 
-Car.createRef = async function(d, id, br, md, mt ){
+Car.addRef = async function(d, id, br, md, mt ){
     
     const date = new Date(d)
     const year = date.getFullYear()
@@ -122,39 +123,21 @@ Car.createRef = async function(d, id, br, md, mt ){
 
 Car.add = async function(body){
     try {
-        // console.log(body);
-        const brand = await Brand.getId(body.brand) 
-        const model = await Model.getId(body.model)
-        const motor = await Motor.getId(body.motor)
-        body.brand = brand
-        body.model = model
-        body.motor = motor
-        const car = {
-            ...body,
-            brand, 
-            model,
-            motor
-        }
-        // console.log(car);
-        const suCar = await Car.create(car)
-        // console.log(suCar.dataValues);
-        const ref = await Car.createRef(suCar.createdAt, suCar.id.toString(), suCar.brand.toString(), suCar.model.toString(), suCar.motor.toString())
-        console.log(ref);
+        const suCar = await Car.create(body)
+        const ref = await Car.addRef(suCar.createdAt, suCar.id.toString(), suCar.brand.toString(), suCar.model.toString(), suCar.motor.toString())
         suCar.ref = ref
         const newCar = {
-            ...car,
+            ...body,
             ref
         }
-        // console.log(newCar);
-            await Car.update(newCar, {where: {id : suCar.id}})
-            const superCar = await Car.findByPk(suCar.id)
-            console.log('supercar de model :',superCar.dataValues);
-            return superCar
-
+        await Car.update(newCar, {where: {id : suCar.id}})
+        const superCar = await Car.findByPk(suCar.id)
+        return superCar
     } catch (error) {
         console.log('Unable to create a superCar',error);
     }
 }
+
 
 Car.getCarByRef = async function(){
 

@@ -6,7 +6,7 @@ const AuthGuard = ({children}) => {
 
 
     if(!accountServices.islogged()){
-        return <Navigate to={"/user"}/> 
+        return <Navigate to={"/login"}/> 
     }
     return children  
 

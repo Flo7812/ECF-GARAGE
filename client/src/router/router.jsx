@@ -6,7 +6,7 @@ import {
 } from "./index"
 
 import Lost from '@/pages/public/lost';
-
+import AuthGuard from '@/_helpers/auth/authGuard';
 
 export const PublicRouter = () => {
 

@@ -95,12 +95,12 @@ export default function CreateUser(){
                         
                             <label >
                             Admin 
-                                <input className="checkbox" type="radio" name= 'role' value={datas.role ='1'} disabled /* name="role_admin" disabled value={'admin'}*/ onChange={onChange} /><br />
+                                <input className="checkbox" type="radio" name= 'role' value={datas.role ='1'} disabled onChange={onChange} /><br />
                             </label>
                         
                             <label >
                             Employé
-                                <input className="checkbox" type="radio" name="role" value={datas.role ='2'} checked /* name="role_user" checked value={'employee'} label='employé'*/ onChange={onChange} /><br />
+                                <input className="checkbox" type="radio" name="role" value={datas.role ='2'} checked  onChange={onChange} /><br />
                             </label>
                         
                 </fieldset>

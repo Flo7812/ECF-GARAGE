@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { accountServices } from "../../_services/accountServices";
 
 const UserHeader= () => {
 
@@ -21,7 +22,7 @@ const UserHeader= () => {
             </nav>
             <div>
                 <span>User Connect:</span>
-                <Link to={'/home'}><button>Logout</button></Link>
+                <Link to={'/login'}><button onClick={accountServices.logout}>Logout</button></Link>
             </div>
         </header>
     );

@@ -1,4 +1,5 @@
 const { Car, Brand, Model, Motor, Seller} = require('../../DB/Models/index')
+const toFirstStrUppC = require('../../Utils/toFirstStringUpperCase')
 
 //function to get brand, model and motor name from their own tables
 async function reqCarData(cars, res){
@@ -181,35 +182,143 @@ exports.getCarsByMotorName = async(req,res)=>{
     }
 }
 /********private **************/
-exports.addCar = (req,res)=>{
+exports.addCar = async (req, res)=>{
+    try {
+        if(req.body.seller_last_name && req.body.seller_first_name){
+            add(req, res)
+        }else{
+            addWihoutSeller(req, res)
+        }
+    } catch (error) {
+        return res.status(500).json({message: 'ERROR from addCar_C:', error: error})
+    }
+}
+
+async function add(req, res){
+    
     try {
         req.body.createdBy = req.id 
-        let {brand, model, motor,price, kilometers, initial_registration, seller, createdBy} = req.body
-        
-        if(!brand || !model || !motor || !price || !kilometers || !initial_registration || !seller || !createdBy){
+
+        let {brand, model_name, model_serie, model_description, motor_type, motor_description, price, kilometers, initial_registration, seller_last_name, createdBy} = req.body
+        if(!brand || !model_name || !motor_type ||  !price || !kilometers || !initial_registration || !seller_last_name || !createdBy){
+            return res.status(400).json({message: "data(s) missing"})
+        }
+
+        const sln = toFirstStrUppC(seller_last_name)  
+        const s = await Seller.getId(sln)
+        if(!!s){
+            req.body.seller = s
+        }else{
+            const newSeller =  await Seller.addFromCarAdd(seller_last_name,req.body.seller_first_name, req.body.seller_email,req.body.seller_phone, req.body.seller_address )
+            req.body.seller = newSeller.id
+        }
+
+        const br = await Brand.getId(brand)
+        if(!!br){
+            req.body.brand = br
+        }else{
+            const newBrand = await Brand.create({name:brand})
+            req.body.brand = newBrand.id
+        }
+
+        const md = await Model.getId(model_name, model_serie, model_description)
+        if(!!md){
+            req.body.model = md
+        }else{
+            const mdl = await Model.findOne( {where:{name : model_name,serie : model_serie}})
+            if(!!mdl){
+                req.body.model = mdl.id
+            }else{
+                const bodyModel = {name: model_name, serie : model_serie, description: model_description}
+                const newModel = await Model.add(bodyModel)
+                req.body.model = newModel.id
+            }
+        }  
+
+        const motorId = await Motor.getId(motor_type,  motor_description)
+        if(!!motorId){
+            req.body.motor = motorId
+        }else{
+            const newMotor = await Motor.add({type: motor_type, description: motor_description})
+            req.body.motor = newMotor.id
+        }
+        const car = await Car.findOne({where : {brand: req.body.brand, model: req.body.model, motor: req.body.motor,initial_registration : req.body.initial_registration,kilometers : req.body.kilometers, seller: req.body.seller}}) 
+        if(!!car){
+            return res.status(409).json({message: `this car : ${brand} ${model_name} already exists `})
+        }
+        const superCar = await Car.add(req.body)
+        if(superCar){
+            res.json({message: 'Car created', data: superCar, by: req.username})
+        }else{
+            res.status(500).json({message: "Error Database if body content checked", error: e})
+        }  
+    } catch (error) {
+        res.status(500).json({message: 'ERROR add addCarWS_C:', error: error})
+    }
+}
+
+async function addWihoutSeller(req, res){
+    try {
+        req.body.createdBy = req.id 
+        const pers = await Seller.findOne({where:{last_name : 'Simson'}})
+        if(!!pers){
+            req.body.seller = pers.id
+        }else{
+            const newSeller= await Seller.create({last_name:'Simson',first_name:'Homer',email:'hs@mail.fr',phone: '8888888888',address: 'springfield'})
+            req.body.seller = newSeller.id
+        }
+
+        let {brand, model_name, model_serie, model_description, motor_type, motor_description, price, kilometers, initial_registration, seller, createdBy} = req.body
+        if(!brand || !model_name || !motor_type ||  !price || !kilometers || !initial_registration || !seller || !createdBy){
             return res.status(400).json({message: "data(s) missing"})
         }
         
+        const br = await Brand.getId(brand)
+        if(!!br){
+            req.body.brand = br
+        }else{
+            const newBrand = await Brand.create({name:brand})
+            req.body.brand = newBrand.id
+        }
 
-        Car.findOne({where : {/* brand: brand, model: model, motor: motor, */ initial_registration : initial_registration,kilometers : kilometers, seller: seller}, raw: true})
-        .then(async car => {
-            console.log(car);
-            if(!!car){
-                return res.status(409).json({message: `this car : brandId: ${car.brand} modelId:${car.model} already exists `})
+        const md = await Model.getId(model_name, model_serie, model_description)
+        if(!!md){
+            req.body.model = md
+        }else{
+            const mdl = await Model.findOne( {where:{name : model_name,serie : model_serie}})
+            if(!!mdl){
+                req.body.model = mdl.id
+            }else{
+                const bodyModel = {name: model_name, serie : model_serie, description: model_description}
+                const newModel = await Model.add(bodyModel)
+                req.body.model = newModel.id
             }
-                const superCar = await Car.add(req.body)
-                if(superCar){
-                    console.log("nouvelle voiture :" ,superCar.dataValues);
-                    res.json({message: 'Car created', data: superCar, by: req.username})
-                }else{
-                    res.status(500).json({message: "Error Database if body content checked", error: e})
-                }  
-        })
-    } catch (error) {
-        res.status(500).json({message: "Error Database", error: error})
-    }
+        }  
 
+        const motorId = await Motor.getId(motor_type,  motor_description)
+        if(!!motorId){
+            req.body.motor = motorId
+        }else{
+            const newMotor = await Motor.add({type: motor_type, description: motor_description})
+            req.body.motor = newMotor.id
+        }
+        const car = await Car.findOne({where : {brand: req.body.brand, model: req.body.model, motor: req.body.motor,initial_registration : req.body.initial_registration,kilometers : req.body.kilometers}}) 
+        if(!!car){
+            return res.status(409).json({message: `this car : ${brand} ${model_name} already exists `})
+        }
+        const superCar = await Car.add(req.body)
+        if(superCar){
+            res.json({message: 'Car created', data: superCar, by: req.username})
+        }else{
+            res.status(500).json({message: "Error Database if body content checked", error: e})
+        }  
+    } catch (error) {
+        res.status(500).json({message: 'ERROR add addCarWS_C:', error: error})
+    }
 }
+
+
+
 
 exports.modifyCarById = async(req,res)=>{
     try {

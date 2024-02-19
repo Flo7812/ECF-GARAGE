@@ -15,7 +15,7 @@ function App() {
           
             <Route path="user/*" element={
               <AuthGuard>
-                <UserRouter/>
+                  <UserRouter/>
               </AuthGuard>
             }/>
             <Route path="admin/*" element={

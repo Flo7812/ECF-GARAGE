@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 const saveToken = (token)=>{
@@ -17,13 +17,20 @@ const saveRole = (role)=>{
 const logout = ()=>{
     localStorage.removeItem('token') 
     localStorage.removeItem('name') 
-    localStorage.removeItem('username') 
-    const navigate = useNavigate()
-    return navigate("/")
+    localStorage.removeItem('role') 
+    localStorage.removeItem('username')
+    return 
+
 }
 
 const islogged = async()=>{
+    const navigate = useNavigate()
     const token = localStorage.getItem('token')
+    if(!token){
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        navigate('/login')
+    }
     console.log('isLogged control');
     return !!token
 

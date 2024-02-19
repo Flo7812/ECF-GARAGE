@@ -44,20 +44,20 @@ async function initDBTables(){
                 .catch((e)=> console.log('Unable to create instances of Table Models', e))
 
             await DBmodels.Motor.bulkCreate([
-                    {type: 'essence'},
-                    {type: 'diesel'},
-                    {type: 'hybride'},
-                    {type: 'electrique'},
+                    {type: 'Essence'},
+                    {type: 'Diesel'},
+                    {type: 'Hybride'},
+                    {type: 'Electrique'},
                     {
-                        type: 'essence',
+                        type: 'Essence',
                         description: '1L6'
                     },
                     {
-                        type: 'electrique',
+                        type: 'Electrique',
                         description: '27kw'
                     },
                     {
-                        type: 'diesel',
+                        type: 'Diesel',
                         description: '1L4'
                     }
                 ])
@@ -135,7 +135,7 @@ async function initDBTables(){
 
             await DBmodels.Car.bulkCreate([
                     {
-                        ref:'20242001-00001-01-01-05',
+                        ref:'20242001-0001-001-001-005',
                         brand: '1',
                         model: '1',
                         motor: '5',
@@ -147,7 +147,7 @@ async function initDBTables(){
                         createdBy:'2'
                     },
                     {
-                        ref:'20242201-00002-02-03-06',
+                        ref:'20242201-0002-002-003-006',
                         brand: '2',
                         model: '3',
                         motor: '6',
@@ -159,7 +159,7 @@ async function initDBTables(){
                         createdBy:'2'
                     },
                     {
-                        ref:'20242201-00003-03-04-01',
+                        ref:'20242201-0003-003-004-001',
                         brand: '3',
                         model: '4',
                         motor: '1',
@@ -171,7 +171,7 @@ async function initDBTables(){
                         createdBy:'2'
                     },
                     {
-                        ref:'20242201-00004-04-05-07',
+                        ref:'20242201-0004-004-005-007',
                         brand: '4',
                         model: '5',
                         motor: '7',
@@ -190,7 +190,7 @@ async function initDBTables(){
                     {
                         author_last_name: 'Simson',
                         author_first_name: 'Homer',
-                        author_email: 'HSimson@springfield.com',
+                        author_email: 'hsimson@springfield.com',
                         content: 'C\'est un super garage!!',
                         status: '1',
                         validator:'2'
@@ -280,20 +280,20 @@ async function initDBTables(){
 
                 await DBmodels.Message.bulkCreate([
                     {
-                        sender_last_name: 'Jean-Jaques',
-                        sender_first_name: 'Poirot',
+                        sender_last_name: 'Poirot',
+                        sender_first_name: 'Jean-jaques',
                         sender_email: 'jjpoirot@mail.fr',
                         sender_phone:'0605040302',
-                        object: 'Reanult Clio 3 essence 1L6 ref : 20242001-00001-01-01-05',
+                        object: 'Reanult Clio 3 essence 1L6 ref : 20242001-0001-001-001-005',
                         refCar:'20242001-00001-01-01-05',
                         content:'j aime beaucoup cette Reanult Clio 3 est elle toujours disponible?.'
                     },
                     {
-                        sender_last_name: 'Jeannette',
-                        sender_first_name: 'Deschamps',
+                        sender_last_name: 'Deschamps',
+                        sender_first_name: 'Jeannette',
                         sender_phone:'0701020304',
-                        object: 'Peaugot 206  essence ref : 20242201-0003-04-01',
-                        refCar:'20242201-0003-04-01',
+                        object: 'Peaugot 206  essence ref : 20242201-0003-004-001-002',
+                        refCar:'20242201-0003-004-001-002',
                         content: 'Pouvez vous me recontacter.'
                     }
                 ])                    
