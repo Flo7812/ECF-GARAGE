@@ -184,21 +184,26 @@ exports.getCarsByMotorName = async(req,res)=>{
 exports.addCar = (req,res)=>{
     try {
         req.body.createdBy = req.id 
-        let {brand, model, motor, kilometers, initial_registration, seller, createdBy} = req.body
+        let {brand, model, motor,price, kilometers, initial_registration, seller, createdBy} = req.body
         
-        if(!brand || !model || !motor || !kilometers || !initial_registration || !seller || !createdBy){
+        if(!brand || !model || !motor || !price || !kilometers || !initial_registration || !seller || !createdBy){
             return res.status(400).json({message: "data(s) missing"})
         }
         
 
-        Car.findOne({where : {brand: brand, model: model, motor: motor, initial_registration : initial_registration,kilometers : kilometers, seller: seller}, raw: true})
-        .then(car => {
+        Car.findOne({where : {/* brand: brand, model: model, motor: motor, */ initial_registration : initial_registration,kilometers : kilometers, seller: seller}, raw: true})
+        .then(async car => {
+            console.log(car);
             if(!!car){
                 return res.status(409).json({message: `this car : brandId: ${car.brand} modelId:${car.model} already exists `})
             }
-                Car.create(req.body)
-                    .then(Car => res.json({message: 'Car created', data: Car, by: req.username}))
-                    .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))   
+                const superCar = await Car.add(req.body)
+                if(superCar){
+                    console.log("nouvelle voiture :" ,superCar.dataValues);
+                    res.json({message: 'Car created', data: superCar, by: req.username})
+                }else{
+                    res.status(500).json({message: "Error Database if body content checked", error: e})
+                }  
         })
     } catch (error) {
         res.status(500).json({message: "Error Database", error: error})
@@ -220,7 +225,7 @@ exports.modifyCarById = async(req,res)=>{
                 }
                 if(req.body.brand){
                     // const brand = await Brand.findByPk(req.body.model)
-                    req.body.brand.toLowerCase() = await Brand.getIdByName(req.body.brand)
+                    req.body.brand.toLowerCase() = await Brand.getId(req.body.brand)
                 }
                 if(req.body.model){
                     const model = await Model.findOne({where:{name:req.body.model}})

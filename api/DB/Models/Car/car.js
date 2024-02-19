@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, where } = require('sequelize');
 const sequelize = require('../../Connection/GVP');
 const Seller = require('./seller')
 const Brand = require('./brand')
@@ -17,7 +17,6 @@ const Car = sequelize.define('Car',{
     },
     ref:{
         type: DataTypes.STRING,
-        allowNull:false,
         defaultValue:'',
         unique: true
     },
@@ -105,19 +104,61 @@ Car.belongsTo(User,{
 })
 User.hasMany(Car, {foreignKey: 'deletedBy'})
 
-Car.createRef = async function(){
-
+Car.createRef = async function(d, id, br, md, mt ){
+    
+    const date = new Date(d)
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    const FomatDate = `${year}${month}${day}`
+    const idu = id.padStart(4, '0').toString()
+    const brand = br.padStart(3, '0')
+    const model = md.padStart(3, '0')
+    const motor = mt.padStart(3, '0')
+    const ref = FomatDate+'-'+idu+'-'+brand+'-'+model+'-'+motor
+    // console.log(typeof ref,' ',ref);
+    return ref
 }
 
-Car.createCar = async function(){
+Car.add = async function(body){
     try {
-        
+        // console.log(body);
+        const brand = await Brand.getId(body.brand) 
+        const model = await Model.getId(body.model)
+        const motor = await Motor.getId(body.motor)
+        body.brand = brand
+        body.model = model
+        body.motor = motor
+        const car = {
+            ...body,
+            brand, 
+            model,
+            motor
+        }
+        // console.log(car);
+        const suCar = await Car.create(car)
+        // console.log(suCar.dataValues);
+        const ref = await Car.createRef(suCar.createdAt, suCar.id.toString(), suCar.brand.toString(), suCar.model.toString(), suCar.motor.toString())
+        console.log(ref);
+        suCar.ref = ref
+        const newCar = {
+            ...car,
+            ref
+        }
+        // console.log(newCar);
+            await Car.update(newCar, {where: {id : suCar.id}})
+            const superCar = await Car.findByPk(suCar.id)
+            console.log('supercar de model :',superCar.dataValues);
+            return superCar
+
     } catch (error) {
-        
+        console.log('Unable to create a superCar',error);
     }
 }
 
-Car.getCarByRef
+Car.getCarByRef = async function(){
+
+}
 
 Car.afterRestore = async function(){
 

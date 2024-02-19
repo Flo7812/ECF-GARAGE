@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../Connection/GVP');
+const toFSU = require('../../../Utils/toFirstStringUpperCase')
 
 const Brand = sequelize.define('car_brand',{
 
@@ -43,7 +44,7 @@ Brand.getIds = async function(){
 
 /************* Get One *********************/
 
-Brand.getNamebyId = async function(id){
+Brand.getName = async function(id){
     try {
         const brand = await Brand.findByPk(id)
         return brand.name
@@ -55,10 +56,13 @@ Brand.getName = function(){
     return this.name
 }
 
-Brand.getIdByName = async function(name){
+Brand.getId = async function(name){
     try {
-        const brand = await Brand.findOne({where:{name : name}})
+        const br  = toFSU(name)
+        const brand = await Brand.findOne({where:{name : br}})
+        console.log(brand.id);
         return brand.id
+        
     } catch (error) {
         return console.log(`Error from Model Brand : Can\'t find this brand :${this.name}`, error)
     }

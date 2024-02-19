@@ -1,14 +1,14 @@
 const bcrypt = require('bcrypt')
 const DBmodels = require('../Models/index');
-const GVPsequelize = require('../Connection/GVPsequelize')
+const GVP = require('../Connection/GVP')
 
 async function initDBTables(){
     try {
         console.log('Create Processus DBtables START');
-        await GVPsequelize.authenticate()
+        await GVP.authenticate()
             .then(()=> console.log(`Connection Sequelize DB with ${process.env.GVPA_DB_USER} OK`))
             .catch((e)=> console.log(`Connection Sequelize DB with ${process.env.GVPA_DB_USER} ERROR:`, e))
-        await GVPsequelize.sync({force: true})
+        await GVP.sync({force: true})
             .then(()=>console.log(`Sync Sequelize DB OK`, DBmodels))
             .catch((e)=> console.log('Sequelize DB Sync ERROR :', e))
         await DBmodels.UserRole.bulkCreate([
