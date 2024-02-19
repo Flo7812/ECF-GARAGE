@@ -43,9 +43,7 @@ exports.getUserById = (req, res)=>{
 }
 
 exports.addUser = (req, res)=>{
-    if(req.role !== 1){
-        return res.status(401).json({message: 'Unauthorized user'})
-    }
+    
     const {last_name, first_name, username, email, date_of_birth, address, phone, password} = req.body 
     if(!last_name || !first_name || !username || !email || !date_of_birth || !phone ||!address || !password){
         return res.status(400).json({message: "data(s) missing"})
@@ -113,9 +111,6 @@ exports.restoreUserById = async(req, res)=>{
 }
 
 exports.trashDeleteUserById = (req, res)=>{
-    if(req.role !== 1){
-        return res.status(401).json({message: 'Unauthorized user'})
-    }
     let userId = parseInt(req.params.id)
     if(!userId){
         return res.status(400).json({message: "id parameter missing"})

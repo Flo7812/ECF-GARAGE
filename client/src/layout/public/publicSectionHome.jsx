@@ -6,7 +6,7 @@ const PublicSectionHome = () => {
         <section className="home-accueil" >
             <h1>Accueil</h1>
             <button className="selecteur">1</button>
-            <img src="/src/assets/LogoVoitureColoriage.png" alt="" />
+            <img src="/src/__assets/LogoVoitureColoriage.png" alt="" />
             <button className="selecteur">2</button>
                 <div>
                     <h2>Titre</h2>

@@ -6,7 +6,7 @@ const Footer = () => {
         <footer>
             <h2>Footer</h2>
             <ShedulesTable/>
-            <img className='logo' src="/src/assets/Logo1.png" alt="" />
+            <img className='logo' src="/src/__assets/Logo1.png" alt="" />
         </footer>
     );
 };

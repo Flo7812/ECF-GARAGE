@@ -27,33 +27,27 @@ dist-ssr
 
 #files
 
-client/src/#unUsed/AdminIndex.js
-client/src/#unUsed/adminRouter.jsx
-client/src/#unUsed/publicRouter.jsx
-client/src/#unUsed/UserIndex.js
-client/src/#unUsed/userRouter.jsx
-client/src/#unUsed/addHTMLelement.js
+cleant/rsc/__unUsed
+client/src/__unUsed/adminRouter.jsx
+client/src/__unUsed/publicRouter.jsx
+client/src/__unUsed/AdminIndex.js
+client/src/__unUsed/UserIndex.js
+client/src/__unUsed/userRouter.jsx
+client/src/__unUsed/addHTMLelement.js
 
 
-
-api/unUsed/carr.js
-api/unUsed/user.js
-
-api/unUsed/test.js
-
-api/unUsed/indexArrayModels.js
-
-api/unUsed/indexRouter.js
-
-api/unUsed/unUsed.js
-
-api/unUsed/associations.js
-
-api/unUsed/authDB.js
-api/unUsed/authGuardDB.js
-api/unUsed/checkRoleDBconnect.js
-
-api/unUsed/GVPEsequelize.js
-api/unUsed/GVPCsequelize.js
-api/unUsed/controlDBconnect.js
-api/unUsed/connectToDB.js
+api/#unUsed
+api/#unUsed/carr.js
+api/#unUsed/user.js
+api/#unUsed/test.js
+api/#unUsed/indexArrayModels.js
+api/#unUsed/indexRouter.js
+api/#unUsed/unUsed.js
+api/#unUsed/associations.js
+api/#unUsed/authDB.js
+api/#unUsed/authGuardDB.js
+api/#unUsed/checkRoleDBconnect.js
+api/#unUsed/GVPEsequelize.js
+api/#unUsed/GVPCsequelize.js
+api/#unUsed/controlDBconnect.js
+api/#unUsed/connectToDB.js

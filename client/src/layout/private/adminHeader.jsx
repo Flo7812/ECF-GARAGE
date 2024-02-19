@@ -4,7 +4,7 @@ const AdminHeader = () => {
 
     return (
         <header>
-            <img className="logo" src="/src/assets/Logo1.png" alt="" />
+            <img className="logo" src="/src/__assets/Logo1.png" alt="" />
             <nav>
                 <ul>
                     <li><Link to='/admin/publicHome'>Accueil</Link></li>

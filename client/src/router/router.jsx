@@ -7,6 +7,7 @@ import {
 
 import Lost from '@/pages/public/lost';
 
+
 export const PublicRouter = () => {
 
     return (
@@ -19,7 +20,7 @@ export const PublicRouter = () => {
                     <Route path="/occasions" element={<SecondHand/>}/>
                     <Route path="/temoignages" element={<Testimonials/>}/>
                     <Route path='/occasions/fiche/:id' element={<CardCar/>}/>
-                    <Route path="/auth" element={<Login/>}/>
+                    <Route path="/login" element={<Login/>}/>
                 </Route>
                 <Route path='*' element={<Lost/>}/>
             </Routes>
@@ -33,23 +34,25 @@ export const UserRouter = () => {
     return (
         <>
             <Routes>
-                <Route element={<UserLayout/>}>
-                    <Route index element={<UserHome/>}/>
+                {/* <AuthGuard> */}
+                    <Route element={<UserLayout/>}>
+                        <Route index element={<UserHome/>}/>
 
-                    <Route path="/home" element={<UserHome/>}/>
-                    <Route path="/addCar" element={<CreateCar/>}/>
-                    <Route path="/cars" element={<ManageCars/>}/>
-                    <Route path="/testimonials" element={<ManageTestimonials/>}/>
-                    
+                        <Route path="/home" element={<UserHome/>}/>
+                        <Route path="/addCar" element={<CreateCar/>}/>
+                        <Route path="/cars" element={<ManageCars/>}/>
+                        <Route path="/testimonials" element={<ManageTestimonials/>}/>
+                        
 
-                    <Route path="/publicHome" element={<Home/>}/>
-                    <Route path="/services" element={<Services/>}/>
-                    <Route path="/occasions" element={<SecondHand/>}/>
-                    <Route path="/temoignages" element={<Testimonials/>}/>
-                    <Route path='/occasions/fiche/:id' element={<CardCar/>}/>
+                        <Route path="/publicHome" element={<Home/>}/>
+                        <Route path="/services" element={<Services/>}/>
+                        <Route path="/occasions" element={<SecondHand/>}/>
+                        <Route path="/temoignages" element={<Testimonials/>}/>
+                        <Route path='/occasions/fiche/:id' element={<CardCar/>}/>
 
-                </Route>
-                <Route path="*" element={<Lost/>}/>
+                    </Route>
+                    <Route path="*" element={<Lost/>}/>
+                {/* </AuthGuard> */}
             </Routes>      
         </>
     );
