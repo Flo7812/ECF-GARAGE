@@ -63,10 +63,9 @@ User.belongsTo(UserRole,{foreignKey: 'role'})
 UserRole.hasMany(User,{foreignKey:'role'})
 
 
-User.add = async function(ln, fn, email, birth, address, phone, password, role, ){
+User.add = async function({last_name : ln, first_name : fn,email: email,date_of_birth: birth,address:  address,phone: phone,password: password,role: role} ){
     try {
-        // const user = 
-        User.create({
+        let user = await User.create({
             last_name: toFirstStrUppC(ln),
             first_name: toFirstStrUppC(fn),
             username: makeUsername(ln,fn,makeKeyNumber(birth,phone)),
@@ -77,7 +76,14 @@ User.add = async function(ln, fn, email, birth, address, phone, password, role, 
             password: await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT)),
             role: role
         })
-        // await User.afterCreate(user)
+        newUsername = makeUsername(ln,fn,user.id)
+        superUser ={
+            ...user,
+            username:newUsername
+        }
+        await User.update(superUser,{where:{id: user.id}})
+        const newUser = await User.findByPk(user.id)
+        return newUser
     } catch (error) {
         console.log({message : 'from user model',error : error});
     }

@@ -42,26 +42,31 @@ exports.getUserById = (req, res)=>{
     }).catch(e => res.status(500).json({message: "Error Database", error: e}))
 }
 
-exports.addUser = (req, res)=>{
-    
-    const {last_name, first_name, username, email, date_of_birth, address, phone, password} = req.body 
-    if(!last_name || !first_name || !username || !email || !date_of_birth || !phone ||!address || !password){
-        return res.status(400).json({message: "data(s) missing"})
-    }
-    User.findOne({where : {email : email}, raw: true})
-    .then(user => {
-        if(!!user){
-            return res.status(409).json({message: `this user : ${user.last_name} ${user.first_name} already exists `})
+exports.addUser = async(req, res)=>{
+    try {
+        const {last_name, first_name, /* username ,*/ email, date_of_birth, address, phone, password} = req.body 
+        if(!last_name || !first_name || /* !username || */ !email || !date_of_birth || !phone ||!address || !password){
+            return res.status(400).json({message: "data(s) missing"})
         }
-        bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT) )
-            .then( hash => {
-                req.body.password = hash
-        // Body control ... 
-            User.create(req.body)
-                .then(user => res.json({message: 'user created', data: user, by: req.token.username }))
-                .catch(e => res.status(500).json({message: "Error Database if body content checked", error: e}))
-            }).catch(e => res.status(500).json({message: "Hash process error", error: e}))       
-    }).catch(e => res.status(500).json({message: "Error Database", error: e}))
+        const user = await User.findOne({where : {email : email}, raw: true})
+            if(!!user){
+                return res.status(409).json({message: `this user : ${user.last_name} ${user.first_name} already exists `})
+            }
+            // bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT) )
+            //     .then( hash => {
+            //         req.body.password = hash
+            // Body control ... 
+
+        const newUser = await User.add(req.body)
+        if(!!newUser){
+            return res.status(200).json({message: 'user created', data: newUser, by: req.token.username })
+        }else{
+            return res.status(500).json({message: "Error Database if body content checked"})
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message: "Error Database", error: error})
+    }
 }
 
 exports.modifyUserById = async(req, res)=>{

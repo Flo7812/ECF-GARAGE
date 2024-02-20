@@ -13,14 +13,14 @@ export default function CreateUser(){
         phone:'',
         email:'',
         password:'',
-        username:''
+        // username:''
     })
     
     const onChange = (e)=>{
         setDatas({
             ...datas,
             [e.target.name]: e.target.value,
-            username: `${datas.first_name}${datas.role}`
+            // username: `${datas.first_name}${datas.role}`
         })
     }
 
@@ -35,7 +35,6 @@ export default function CreateUser(){
         }
         try {
             const token = localStorage.getItem('token')
-            console.log(datas);
             const r = await fetch('http://127.0.0.1:1988/admin/users', {
                 method: 'PUT',
                 headers: {
@@ -49,7 +48,7 @@ export default function CreateUser(){
                 const name = res.data.username
                 console.log(`${name} created`);
                 alert(`${name} a ete cree`)
-                navigate("/admin/home");
+                // navigate("/admin/home");
             }else{
                 const data = await r.json()
                 const message = data.message
