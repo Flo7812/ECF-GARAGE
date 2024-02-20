@@ -1,11 +1,5 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { accountServices } from "../../../_services/accountServices"
-
-
-
-
-
 
 export default function CreateUser(){
 
@@ -19,7 +13,7 @@ export default function CreateUser(){
         phone:'',
         email:'',
         password:'',
-
+        username:''
     })
     
     const onChange = (e)=>{
@@ -32,43 +26,38 @@ export default function CreateUser(){
 
     async function addUser(e) {
         e.preventDefault();
-        // console.log(datas);
         for (const data in datas) {
             const value = datas[data]
-            // console.log(data,' : ', datas[data]);
             if(!value){
                 alert('merci de remplir tout les champs ')
                 return
             } 
         }
-            
-            try {
-                const token = localStorage.getItem('token')
-                console.log(datas);
-                const r = await fetch('http://127.0.0.1:1988/admin/users', {
-                    method: 'PUT',
-                    headers: {
-                        'content-Type': 'application/json',
-                        'Authorization':'Bearer '+token,
-                    },
-                    body: JSON.stringify(datas)
-                });
-                if (r.ok) {
-                    console.log(r);
-                    const res = await r.json()
-                    const name = res.data.username
-                    console.log(`${name} created`);
-                    alert(`${name} a ete cree`)
-                    navigate("/admin/home");
-                }else{
-                    console.log(r);
-                    const data = await r.json()
-                    const message = data.message
-                    return alert(message)
-                }
-            } catch (error) {
-                console.log(error.message);
+        try {
+            const token = localStorage.getItem('token')
+            console.log(datas);
+            const r = await fetch('http://127.0.0.1:1988/admin/users', {
+                method: 'PUT',
+                headers: {
+                    'content-Type': 'application/json',
+                    'Authorization':'Bearer '+token,
+                },
+                body: JSON.stringify(datas)
+            });
+            if (r.ok) {
+                const res = await r.json()
+                const name = res.data.username
+                console.log(`${name} created`);
+                alert(`${name} a ete cree`)
+                navigate("/admin/home");
+            }else{
+                const data = await r.json()
+                const message = data.message
+                return alert(message)
             }
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     return(
