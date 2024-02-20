@@ -59,7 +59,7 @@ exports.addUser = async(req, res)=>{
 
         const newUser = await User.add(req.body)
         if(!!newUser){
-            return res.status(200).json({message: 'user created', data: newUser, by: req.token.username })
+            return res.status(200).json({message: 'user created', user: newUser, by: req.token.username })
         }else{
             return res.status(500).json({message: "Error Database if body content checked"})
         }

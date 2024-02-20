@@ -63,25 +63,21 @@ Motor.getId = async function(type, des){
 Motor.add = async function(body){
     const type = toFirstStrUppC(body.type)
     const mtr = await Motor.findOne({where:{type : type, description : body.description }})
-    if(!mtr){
-        const motorType = Motor.getMotorsByType(type)
+    if(!!mtr){
+        return
+    }else{
+        const motorType = await Motor.findOne({where:{type: type}})
         if(!!motorType){
             if(body.description !== ''){
-                const newBody = {type : type, description: body.description} 
-                const newMotor = await Motor.create(newBody)
-                return newMotor
-            }else{
                 return
-                // throw new Error("this motor_type without descripton already exists")
-            }    
+            }else{
+                const newMotor = await Motor.create({type : type, description: body.description})
+                return newMotor
+            }
         }else{
-            const newBody = {type : type, description: body.description} 
-            const newMotor = await Motor.create(newBody)
+            const newMotor = await Motor.create({type : type, description: body.description})
             return newMotor
         }
-    }else{
-        return
-        // throw new Error("this motor with this description  already exists")
     }
 }
 

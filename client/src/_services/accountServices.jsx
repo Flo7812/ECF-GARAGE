@@ -1,4 +1,54 @@
 import { useNavigate } from "react-router-dom"
+import Axios from "../_helpers/auth/axios"
+
+
+const addUser = (datas)=>{
+    return Axios.put('/admin/users', datas)
+}
+const getUser = ()=>{
+    return Axios.get('/admin/users')
+}
+const getUsers = ()=>{
+    return Axios.get('/admin/users')
+}
+
+
+
+const addCar =(datas)=>{
+    return Axios.put('/user/cardsCars',datas)
+}
+const getCar =()=>{
+    return Axios.get('/admin/users')
+}
+const getCars =()=>{
+    return Axios.get('/admin/users')
+}
+
+
+
+const addTestimony =(datas)=>{
+    return Axios.put('/user/cardsCars',datas)
+}
+const getTestimony =()=>{
+    return Axios.get('/admin/users')
+}
+const getTestimonials =()=>{
+    return Axios.get('/admin/users')
+}
+
+
+const addShedules =(datas)=>{
+    return Axios.put('/user/cardsCars',datas)
+}
+const getShedules =()=>{
+    return Axios.get('/admin/users')
+}
+
+
+
+
+
+
 
 
 const saveToken = (token)=>{
@@ -12,6 +62,16 @@ const saveName = (name)=>{
 }
 const saveRole = (role)=>{
     localStorage.setItem('role',role)
+}
+
+
+
+
+
+
+
+const axlogin = (log)=>{
+    return Axios.post('/login',log)
 }
 
 const logout = ()=>{
@@ -50,6 +110,31 @@ const isAdmin = ()=>{
     }
 }
 
+const displayUsername = ()=>{
+    const username = localStorage.getItem('username')
+    return username
+}
+
+
 export  const accountServices = {
-    islogged, isAdmin,saveRole, saveName, saveToken, saveUsername, logout
+    axlogin, 
+    logout, 
+    islogged, 
+    isAdmin,
+    saveToken, 
+    saveRole, 
+    saveUsername, 
+    saveName, 
+    displayUsername, 
+    addCar,
+    getCar,
+    getCars,
+    addUser,
+    getUser,
+    getUsers,
+    addTestimony,
+    getTestimony,
+    getTestimonials,
+    addShedules,
+    getShedules
 }

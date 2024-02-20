@@ -1,7 +1,6 @@
-
+import axios from 'axios'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
 import {accountServices} from "@/_services/accountServices"
 
 export default function Login() {
@@ -24,10 +23,9 @@ export default function Login() {
         e.preventDefault();
         if (log.email !=='' && log.password !==''){ 
             try {
-                const r = await axios.post('http://127.0.0.1:1988/login', log)    
+                const r = await accountServices.axlogin(log)    
                 if(r.status === 200){
                     const data = await r.data
-                    console.log('data: ',data);
                 
                     if(data.role === 1){
                         console.log(data.name);
@@ -39,6 +37,7 @@ export default function Login() {
                         console.log(data.name);
                         accountServices.saveUsername(data.username)
                         accountServices.saveToken(data.access_token)
+                        accountServices.saveRole(data.role)
                         navigate("/user/home")
                     }
                 }else{

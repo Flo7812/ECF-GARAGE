@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { accountServices } from "../../_services/accountServices";
+import ConnectStatus from "./connectStatus";
 
 const UserHeader= () => {
 
@@ -17,12 +17,10 @@ const UserHeader= () => {
                     <li><Link to='/user/addCar'>Ajout Voiture</Link></li>
                     <li><Link to='/user/cars'>Voitures</Link></li>
                     <li><Link to='/user/testimonials'>Temoignages</Link></li>
-                    <li><Link to='/user/home'>Compte</Link></li>
                 </ul>
             </nav>
             <div>
-                <span>User Connect:</span>
-                <Link to={'/login'}><button onClick={accountServices.logout}>Logout</button></Link>
+                <ConnectStatus/>
             </div>
         </header>
     );

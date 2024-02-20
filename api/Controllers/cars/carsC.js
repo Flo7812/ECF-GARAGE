@@ -197,6 +197,7 @@ exports.addCar = async (req, res)=>{
 async function add(req, res){
     
     try {
+
         req.body.createdBy = req.id 
 
         let {brand, model_name, model_serie, model_description, motor_type, motor_description, price, kilometers, initial_registration, seller_last_name, createdBy} = req.body
@@ -225,30 +226,40 @@ async function add(req, res){
         if(!!md){
             req.body.model = md
         }else{
-            const mdl = await Model.findOne( {where:{name : model_name,serie : model_serie}})
+            const mdl = await Model.findOne({where:{name : model_name,serie : model_serie}})
             if(!!mdl){
                 req.body.model = mdl.id
             }else{
-                const bodyModel = {name: model_name, serie : model_serie, description: model_description}
-                const newModel = await Model.add(bodyModel)
-                req.body.model = newModel.id
-            }
-        }  
+                const moodel = await Model.getByName(model_name)
+                if(!!moodel){
+                    req.body.model = moodel.id
+                }else{
+                    const newModel = await Model.add({name: model_name, serie : model_serie, description: model_description})
+                    req.body.model = newModel.id
+                }
+            }   
+        }
 
         const motorId = await Motor.getId(motor_type,  motor_description)
         if(!!motorId){
             req.body.motor = motorId
         }else{
-            const newMotor = await Motor.add({type: motor_type, description: motor_description})
-            req.body.motor = newMotor.id
+            const motor = await Motor.findOne({where:{type:motor_type}})
+            if(!!motor){
+                req.body.motor = motor.id
+            }else{
+                const newMotor = await Motor.add({type: motor_type, description: motor_description})
+                req.body.motor = newMotor.id
+            }
         }
+        
         const car = await Car.findOne({where : {brand: req.body.brand, model: req.body.model, motor: req.body.motor,initial_registration : req.body.initial_registration,kilometers : req.body.kilometers, seller: req.body.seller}}) 
         if(!!car){
             return res.status(409).json({message: `this car : ${brand} ${model_name} already exists `})
         }
         const superCar = await Car.add(req.body)
         if(superCar){
-            res.json({message: 'Car created', data: superCar, by: req.username})
+            res.json({message: 'Car created', car: superCar, by: req.username})
         }else{
             res.status(500).json({message: "Error Database if body content checked", error: e})
         }  
@@ -280,38 +291,50 @@ async function addWihoutSeller(req, res){
             const newBrand = await Brand.create({name:brand})
             req.body.brand = newBrand.id
         }
-
+        
         const md = await Model.getId(model_name, model_serie, model_description)
         if(!!md){
             req.body.model = md
         }else{
-            const mdl = await Model.findOne( {where:{name : model_name,serie : model_serie}})
+            const mdl = await Model.findOne({where:{name : model_name,serie : model_serie}})
             if(!!mdl){
                 req.body.model = mdl.id
             }else{
-                const bodyModel = {name: model_name, serie : model_serie, description: model_description}
-                const newModel = await Model.add(bodyModel)
-                req.body.model = newModel.id
-            }
-        }  
+                const moodel = await Model.getByName(model_name)
+                if(!!moodel){
+                    req.body.model = moodel.id
+                }else{
+                    const newModel = await Model.add({name: model_name, serie : model_serie, description: model_description})
+                    req.body.model = newModel.id
+                }
+            }   
+        }
 
         const motorId = await Motor.getId(motor_type,  motor_description)
         if(!!motorId){
             req.body.motor = motorId
         }else{
-            const newMotor = await Motor.add({type: motor_type, description: motor_description})
-            req.body.motor = newMotor.id
+            const motor = await Motor.findOne({where:{type:motor_type}})
+            if(!!motor){
+                req.body.motor = motor.id
+            }else{
+                const newMotor = await Motor.add({type: motor_type, description: motor_description})
+                req.body.motor = newMotor.id
+            }
         }
+        
         const car = await Car.findOne({where : {brand: req.body.brand, model: req.body.model, motor: req.body.motor,initial_registration : req.body.initial_registration,kilometers : req.body.kilometers}}) 
         if(!!car){
             return res.status(409).json({message: `this car : ${brand} ${model_name} already exists `})
         }
+
         const superCar = await Car.add(req.body)
         if(superCar){
-            res.json({message: 'Car created', data: superCar, by: req.username})
+            res.json({message: 'Car created', car: superCar, by: req.username})
         }else{
             res.status(500).json({message: "Error Database if body content checked", error: e})
         }  
+        
     } catch (error) {
         res.status(500).json({message: 'ERROR add addCarWS_C:', error: error})
     }

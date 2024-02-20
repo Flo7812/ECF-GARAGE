@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node -r dotenv/config server.js",
     "init": "node -r dotenv/config DB/Initialization/initDB",
-    "dev": " node -r dotenv/config --watch server.js",
+    "dev": " nodemon -r dotenv/config server.js",
     "build": ""
   },
   "keywords": [],
@@ -21,5 +21,7 @@
     "mysql2": "^3.9.1",
     "sequelize": "^6.36.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
 }

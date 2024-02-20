@@ -50,34 +50,29 @@ Model.getByName = async function(n){
 Model.add = async function(body){
     const name = toFirstStrUppC(body.name)
     const mdl = await Model.findOne({where:{name : name, serie: body.serie, description : body.description }})
-    if(!mdl){
-        const model= Model.getByName(name)
+    if(!!mdl){
+        return
+    }else{
+        const model= await Model.getByName(name)
         if(!!model){
             if(body.serie !== ''){
-                const modl = await Model.findOne({where:{name : name, serie: body.serie }})
-                if(!!modl){
+                const serie = await Model.findOne({where:{name : name, serie: body.serie }})
+                if(!!serie){
                     if(body.description !== ''){
-                        throw new Error("this model_type with serie without descripton already exists")
-                    }else{
                         const newModel = await Model.create({name : name, serie: body.serie, description : body.description })
                         return newModel
-                    }    
-                }else{
-                    const newModel = await Model.create({name : name, serie: body.serie, description : body.description })
-                    return newModel
+                    }else{
+                        return
+                    }
                 }
             }else{
                 return
-                // throw new Error("this model without serie already exists")
             }
         }else{
-            const newMotor = await Model.create({name : name, serie: body.serie, description : body.description })
-            return newMotor
+            const newModel = await Model.create({name : name, serie: body.serie, description : body.description })
+            return newModel
         }
-    }else{
-        return
-        // throw new Error("this model with this serie and this description already exists")
-    }
+    } 
 }
 
 

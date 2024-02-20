@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { accountServices } from "../../_services/accountServices";
+import ConnectStatus from "@/layout/private/connectStatus";
 
 
 const AdminHeader = () => {
@@ -18,7 +18,6 @@ const AdminHeader = () => {
                     <li><Link to='/admin/addCar'>Ajout Voiture</Link></li>
                     <li><Link to='/admin/Cars'>Voitures</Link></li>
                     <li><Link to='/admin/testimonials'>Temoignages</Link></li>
-                    <li><Link to='/admin/home'>Compte</Link></li>
                 </ul>
                 <ul>
                     <li><Link to='/admin/addUser'>Ajout Employé</Link></li>
@@ -28,8 +27,7 @@ const AdminHeader = () => {
                 </ul>
             </nav>
             <div>
-                <span>User Connect:</span>
-                <Link to={'/login'}><button onClick={accountServices.logout}>Logout</button></Link>
+                <ConnectStatus/>
             </div>
         </header>
     );

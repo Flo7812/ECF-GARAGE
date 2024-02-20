@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { accountServices } from "../../_services/accountServices"
 
 export default function CreateCar(){
     
@@ -27,7 +28,6 @@ export default function CreateCar(){
         setDatas({
             ...datas,
             [e.target.name]: e.target.value,
-            username: `${datas.first_name}${datas.role}`
         })
     }
 
@@ -36,34 +36,25 @@ export default function CreateCar(){
         /* for (const data in datas) {
             const value = datas[data]
             if(!value){
-                alert('merci de remplir tout les champs ')
+                alert('merci de remplir tout les champs obligatoires')
                 return
             }}  */
         
         try {
-            const token = localStorage.getItem('token')
-            console.log(datas);
-            const r = await fetch('http://127.0.0.1:1988/user/cardsCars', {
-                method: 'PUT',
-                headers: {
-                    'content-Type': 'application/json',
-                    'Authorization':'Bearer '+token,
-                },
-                body: JSON.stringify(datas)
-            });
-            if (r.ok) {
-                const res = await r.json()
-                const name = datas.brand
-                console.log(`${name} created`);
-                alert(`${name} a ete cree`)
-                navigate(`/user/occasions/fiche/:${res.data.id}`);
+            const r = await accountServices.addCar(datas)
+            if (r.status === 200) {
+                const res = await r.data
+                const result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée`
+                console.log(result);
+                alert(result)
+                // navigate(`/user/occasions/fiche/:${res.car.id}`);
             }else{
-                const data = await r.json()
-                const message = data.message
+                const res = await r.data
+                const message = res.message
                 return alert(message)
             }
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     } 
 

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { accountServices } from "../../../_services/accountServices"
 
 export default function CreateUser(){
 
@@ -20,7 +21,6 @@ export default function CreateUser(){
         setDatas({
             ...datas,
             [e.target.name]: e.target.value,
-            // username: `${datas.first_name}${datas.role}`
         })
     }
 
@@ -34,28 +34,27 @@ export default function CreateUser(){
             } 
         }
         try {
-            const token = localStorage.getItem('token')
-            const r = await fetch('http://127.0.0.1:1988/admin/users', {
-                method: 'PUT',
-                headers: {
-                    'content-Type': 'application/json',
-                    'Authorization':'Bearer '+token,
-                },
-                body: JSON.stringify(datas)
-            });
-            if (r.ok) {
-                const res = await r.json()
-                const name = res.data.username
-                console.log(`${name} created`);
+            const r = await accountServices.addUser(datas)
+            // const r = await fetch('http://127.0.0.1:1988/admin/users', {
+            //     method: 'PUT',
+            //     headers: {
+            //         'content-Type': 'application/json',
+            //         'Authorization':'Bearer '+token,
+            //     },
+            //     body: JSON.stringify(datas)
+            // });
+            if(r.status === 200){
+                const res = await r.data
+                const name = res.user.username
                 alert(`${name} a ete cree`)
-                // navigate("/admin/home");
+                navigate("/admin/home");
             }else{
-                const data = await r.json()
-                const message = data.message
+                const res = await r.data
+                const message = res.message
                 return alert(message)
             }
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     }
 
