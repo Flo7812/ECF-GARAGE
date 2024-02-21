@@ -3,6 +3,7 @@ Project ECF "Garage Vincent Parrot"
 Serveur:
     XAMMP 8.2.4
     Apache 2.4.56
+    (phpMyadmin)
     MariaDB  10.4.28
 
 Front(client):
@@ -26,6 +27,7 @@ IDE : VScode
 
     packages api: react-router-dom 6.23.3
                   react-router 1.3.8 (Unnecessary with React 18) 
+                  nodemon
                   axios 1.6.7 
                   jwt
 
@@ -38,18 +40,21 @@ IDE : VScode
 /*********************************************************************/
 /***                Project initialization                         ***/
 /*********************************************************************/
-    api:
-        npm install express dotenv mysql2 cors sequelize bcrypt
+    git init
+    New-Item .gitgnore
+    mkdir api
+    cd api
+        npm install express dotenv mysql2 cors sequelize bcrypt jsonwebtoken
+        npm install --save-dev nodemon 
+        npm init -y
+    cd ..
+    mkdir client
+    cd client
+        npm create vite@latest 
+        npm install
+        npm install react-router-dom axios jwt
         npm init -y
         git init
-        New-Item .gitgnore
-
-    client:
-            npm create vite@latest 
-            npm install
-            npm install react-router-dom react-route axios jwt
-            npm init -y
-            git init
 
 
 
@@ -57,33 +62,66 @@ IDE : VScode
 /***           To start the application in dev mode                ***/
 /*********************************************************************/
 
-! Please make a .env file with a port for the API and yours DB informations !
+! Please make a .env file for the API !
 
-like{
-    DB_HOST="***your host***" as default "localhost"
-    DB_USER="***your name***"
-    DB_PASSWORD="***your password***"
-    DB_DATABASE= "***please let empty this field***"
-    DB_PORT= "***your DB port***" as default for Mysql 3306
-}
+CMD: 
+    cd api
+    New-Item .env
+    cd .env
 
-CMD: cd api
-    /**************************************************/
-    /* Initializing and reset the database and users **/
+/******enter this datas******/
 
-        npm run initDevDB ("node -r dotenv/config initDevDB.js")
+    PORT=***a port number***
+    HOST="***your host***" as default "localhost"
+    DB='' ***an empty DB***
+
+***For the first connection, need an user with 'GRANT OPTION' to create the admin, BE CAREFUL note that 'root'@'%' will be destroyed during initialization.***
+    DB_USER='root' as default
+    DB_PASSWORD='' as defautl
+    DB_PORT="***your DB port***" as default for Mysql 3306
+
+***This user will serve as the admin service account for initializing the database, and will then log out.***
+    GVP_DB='garagevparrot'
+    GVPA_DB_USER="***your name***"
+    GVPA_DB_PASSWORD="***your password***"
+
+***This user will connect to the database after initialization with reduced access rights, and will use Sequelize.***
+    GVPE_DB_USER='***an username***'
+    GVPE_DB_PASSWORD="***a password for a limit user access service account***"
+
+
+***to implement users in database users table***
+    USER_ADMIN_PASSWORD="***a password***"
+    USER_JEANBON_PASSWORD="***a password***"
+    USER_JULESCESAR_PASSWORD="***a password***"
+
+***to hash pass and use jwt***
+    BCRYPT_SALT=***a number***
+    JWT_SECRET_SENTENCE="***a big sentence***"
+    JWT_DURING=***a duration in hours like 1h***
+
+
+/**************************************************/
+/*********Initialiation of the Database************/
+
+    npm run initDB ("node -r dotenv/config initDB.js")
     
-    /**************************************************/
-    /********** Start the API  ************************/   
+/**************************************************/
+/**********Start the API **************************/   
     
-        npm start ("node -r dotenv/config --watch server.js")
+    npm start ("node -r dotenv/config server.js")
 
-CMD: cd client
-    /**************************************************/
-    /********** Start the application  ****************/
+/**************************************************/
+/**********Start the application*******************/
+    cd ..
+    cd client
+    npm run dev ("vite")
+    
 
-        npm run dev ("vite")
-    As default the application run on port 127.0.0.1:517
+
+
+
+
 
 /*********************************************************************/
 /***                   To Build the project                        ***/    
@@ -92,4 +130,4 @@ CMD: cd client
     /**************************************************/
     /********** Initializing the database *************/
 
-        node initBuildDB.js 
+    

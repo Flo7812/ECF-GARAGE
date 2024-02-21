@@ -1,4 +1,4 @@
-const GVP = require('./GVP')
+ const GVP = require('./GVP')
 
 async function sync(){
 await GVP.sync()
