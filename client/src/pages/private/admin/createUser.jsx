@@ -1,10 +1,10 @@
 import { useState } from "react"
-// import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { userServices } from "../../../_services/userServices.js"
 
 export default function CreateUser(){
 
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     
     let [datas, setDatas] = useState({
         last_name: '',
@@ -46,7 +46,7 @@ export default function CreateUser(){
                 let res = await r.data
                 let name = res.user.username
                 alert(`${name} a ete cree`)
-                // navigate("/admin/home");
+                navigate("/admin/home");
         } catch (error) {
             alert(error.response.data.message);
         }

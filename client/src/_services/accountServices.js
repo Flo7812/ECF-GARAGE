@@ -1,4 +1,3 @@
-// import { useNavigate } from "react-router-dom"
 import Axios from "./callerServices.js"
 
 
@@ -33,37 +32,25 @@ const logout = ()=>{
 }
 
 const islogged = async()=>{
-    // const navigate = useNavigate()
     let token = localStorage.getItem('token')
-    // if(!token){
-    //     localStorage.removeItem('token')
-    //     localStorage.removeItem('username')
-    //     localStorage.removeItem('role')
-    //     navigate('/login')
-    // }
     console.log('isLogged control');
     if(!!token){
         return !!token
     }
-    
-
 }
 
 const isAdmin = ()=>{
-    // const navigate = useNavigate()
     let role = localStorage.getItem('role')
-    /* if(!role){
-        localStorage.removeItem('token')
-        localStorage.removeItem('username')
-        localStorage.removeItem('role')
-        navigate('/')
-    }else
-    if(role === '1'){
-        return !!role
-    } */
     console.log('isAdmin control');
     if(!!role){
-        return !!role
+        if(role === '1'){
+            return !!role
+        }else{
+            localStorage.removeItem('token')
+            localStorage.removeItem('username')
+            localStorage.removeItem('role')
+            return !role
+        }
     }
 }
 

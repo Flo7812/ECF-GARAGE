@@ -1,10 +1,10 @@
-// import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
 import  {carServices}  from "../../_services/carServices.js"
 
 export default function CreateCar(){
     
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     
     const [datas, setDatas] = useState({
         seller_last_name: '',
@@ -46,7 +46,7 @@ export default function CreateCar(){
                 let res = await  r.data
                 let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée`
                 alert(result)
-                // navigate(`/user/occasions/fiche/:${res.car.id}`);
+                navigate(`/user/occasions/fiche/:${res.car.id}`);
             } catch (error) {
                 alert(error.response.data.message);
             }
