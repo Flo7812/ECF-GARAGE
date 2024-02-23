@@ -42,16 +42,17 @@ export default function CreateCar(){
         
         try {
             const r = await accountServices.addCar(datas)
+            console.log(r);
             if (r.status === 200) {
-                const res = await r.data
-                const result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée`
-                console.log(result);
+                let res = await  r.data
+                let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée`
+                // console.log(result);
                 alert(result)
                 // navigate(`/user/occasions/fiche/:${res.car.id}`);
             }else{
-                const res = await r.data
-                const message = res.message
-                return alert(message)
+                // let res = await r.data
+                let message = await r.data.message
+                alert(message)
             }
         } catch (error) {
             console.log(error);

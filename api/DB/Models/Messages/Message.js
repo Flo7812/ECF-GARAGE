@@ -40,7 +40,8 @@ const Message = sequelize.define('message',{
         allowNull: false
     }
 },{
-    paranoid: true
+    paranoid: true,
+    freezeTableName: true
 }
 )
 Message.belongsTo(Car, {foreignKey: 'ref'})

@@ -1,5 +1,6 @@
-async function DB(mysql, host, user, pass, db){
-    const DB = await mysql.createConnection({
+
+const DB = (mysql,host, user, pass, db)=>{
+    const DB = mysql.createConnection({
         host: host,
         user: user,
         password: pass,
@@ -9,3 +10,4 @@ async function DB(mysql, host, user, pass, db){
         return  DB
 }
 module.exports = DB
+

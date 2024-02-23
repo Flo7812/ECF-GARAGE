@@ -1,0 +1,15 @@
+
+CREATE TABLE testimonials (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    author_last_name VARCHAR(255) NOT NULL,
+    author_first_name VARCHAR(255) NOT NULL,
+    author_email VARCHAR(255) NOT NULL UNIQUE,
+    content TEXT NOT NULL,
+    status TINYINT NOT NULL DEFAULT 2,
+    validator INT(11),
+    deletedBy INT(11),
+    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (validator) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION,
+    FOREIGN KEY (status) REFERENCES testimony_Status(id) ON UPDATE CASCADE ON DELETE NO ACTION
+);

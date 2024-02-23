@@ -6,7 +6,7 @@ const makeUsername = require('../../../Utils/makeUsername');
 const makeKeyNumber = require('../../../Utils/makeKeyNumber');
 const toFirstStrUppC = require('../../../Utils/toFirstStringUpperCase');
 
-const User = sequelize.define('User',{
+const User = sequelize.define('user',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -56,7 +56,8 @@ const User = sequelize.define('User',{
         allowNull: false
     }
 },{
-    paranoid: true
+    paranoid: true,
+    freezeTableName: true
 });
 
 User.belongsTo(UserRole,{foreignKey: 'role'})

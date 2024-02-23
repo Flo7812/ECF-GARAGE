@@ -1,0 +1,10 @@
+
+CREATE TABLE car_images (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    img1 LONGBLOB NOT NULL,
+    img2 LONGBLOB,
+    img3 LONGBLOB,
+    img4 LONGBLOB,
+    img5 LONGBLOB
+);
+    -- FOREIGN KEY (car) REFERENCES cars(id) ON DELETE CASCADE

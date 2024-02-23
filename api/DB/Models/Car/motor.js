@@ -18,7 +18,10 @@ const Motor = sequelize.define('car_motor',{
         deaultValue: '',
         allowNull: false
     }
-},{paranoid: true})
+},{
+    paranoid: true,
+    freezeTableName: true
+})
 
 
 

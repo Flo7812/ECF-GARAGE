@@ -5,12 +5,14 @@ const Seller = require('./Car/seller')
 const Brand = require('./Car/brand')
 const Model = require('./Car/model')
 const Motor = require('./Car/motor')
+const Image = require('./Car/imagesCar')
 const Testimony = require('./Testimony/testimony')
 const TestimonyStatus = require('./Testimony/testimonyStatus')
 const Section = require('./Sections/section')
 const SectionPage = require('./Sections/sectionPage')
-const ShedulesTable = require('./Shedules/shedulesTable')
-const ShedulesDays = require('./Shedules/shedulesDays')
+const SchedulesWeek = require('./Schedules/SchedulesWeek')
+const SchedulesDay = require('./Schedules/schedulesDay')
+const SchedulesTimeRange = require('./Schedules/schedulesTimeRange')
 const Message = require('./Messages/Message')
 
 module.exports =  DBModels = {
@@ -21,12 +23,14 @@ module.exports =  DBModels = {
         Brand,
         Model,
         Motor,
+        Image,
         Testimony,
         TestimonyStatus,
         Section,
         SectionPage,
-        ShedulesTable,
-        ShedulesDays,
+        SchedulesWeek,
+        SchedulesDay,
+        SchedulesTimeRange,
         Message
         }
 

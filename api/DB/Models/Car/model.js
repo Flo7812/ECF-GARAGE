@@ -22,7 +22,10 @@ const Model = sequelize.define('car_model',{
         type: DataTypes.STRING,
         deaultValue: ''
     }
-},{paranoid: true})
+},{
+    freezeTableName: true,
+    paranoid: true
+})
 
 
 Model.getId = async function(name, ser, des){

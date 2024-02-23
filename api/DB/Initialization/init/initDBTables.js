@@ -1,16 +1,8 @@
 const bcrypt = require('bcrypt')
-const DBmodels = require('../Models/index');
-const GVP = require('../Connection/GVP')
+const DBmodels = require('../../Models/index');
 
 async function initDBTables(){
     try {
-        console.log('Create Processus DBtables START');
-        await GVP.authenticate()
-            .then(()=> console.log(`Connection Sequelize DB with ${process.env.GVPA_DB_USER} OK`))
-            .catch((e)=> console.log(`Connection Sequelize DB with ${process.env.GVPA_DB_USER} ERROR:`, e))
-        await GVP.sync({force: true})
-            .then(()=>console.log(`Sync Sequelize DB OK`, DBmodels))
-            .catch((e)=> console.log('Sequelize DB Sync ERROR :', e))
         await DBmodels.UserRole.bulkCreate([
                 {role: 'admin'},
                 {role: 'employee'}
@@ -105,7 +97,6 @@ async function initDBTables(){
                 ])
                 .then(()=>console.log('instances Users OK'))
                 .catch((e)=> console.log('Unable to create instances of Table Users', e))
-                await DBmodels.User.add('Cesar','jules','jc@mail.rom','1988-10-12','15rue de la victoire','0777777777',process.env.USER_JULESCESAR_PASSWORD,'2' )  
             
                 await DBmodels.Seller.bulkCreate([
                     {
@@ -300,7 +291,7 @@ async function initDBTables(){
                     .then(()=>console.log('instances messages OK'))
                     .catch((e)=> console.log('Unable to create instances of Table messages', e))
     } catch (error) {
-        console.log('Create DBTable ERROR :', error)
+        console.log('Tables intances ERROR :', error)
     }
 }
 

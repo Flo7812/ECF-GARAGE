@@ -1,138 +1,12 @@
-Project ECF "Garage Vincent Parrot"
-
-Serveur:
-    XAMMP 8.2.4
-    Apache 2.4.56
-    (phpMyadmin)
-    MariaDB  10.4.28
-
-Front(client):
-    HTML 5
-    CSS 3
-    React.js 18.2.0
-    Javascript Vanille (ECMAScript 2023)
-    Vite.js  5.0.12
-
-Back(api)
-    Node.js 21.1.0
-    NPM 10.2.4 
-    Express.js 4.18.2
-    ORM : Sequelize 6.36.0
-
-
-IDE : VScode
-    extensions: Database Client JDBC 1.3.4
-                Thunder Client 2.17.4
-                Reactjs code snippets 2.4.0
-
-    packages client: 
-                react-router-dom 6.23.3
-                react-router 1.3.8 (Unnecessary with React 18) 
-                axios 1.6.7 
-
-    packages api: 
-                bcrypt 5.1.1 
-                cors 2.8.5
-                dotenv 16.4.1
-                express 4.18.2
-                jsonwebtoken 9.0.2
-                mysql2 3.9.1
-                sequelize 6.36.0
-                
-
-/*********************************************************************/
-/***                Project initialization                         ***/
-/*********************************************************************/
-
-    mkdir api
-    cd api
-        npm install express dotenv mysql2 cors sequelize bcrypt jsonwebtoken
-        npm install --save-dev nodemon (for dev mode)
-        npm init -y
-    cd ..
-    mkdir client
-    cd client
-        npm create vite@latest 
-        npm install
-        npm install react-router-dom axios jwt
-        npm init -y
-        git init
-
-
-
-/*********************************************************************/
-/***           To start the application                            ***/
-/*********************************************************************/
-
-! Please make a .env file for the API !
-
-CMD: 
-    cd api
-    New-Item .env
-    cd .env
-
-/******enter this datas******/
-
-    PORT=***a port number***
-    HOST="***your host***" as default "localhost"
-    DB='' ***an empty DB***
-
-***For the first connection, need an user with 'GRANT OPTION' to create the admin, BE CAREFUL note that 'root'@'%' will be destroyed during initialization.***
-    DB_USER='root' as default
-    DB_PASSWORD='' as defautl
-    DB_PORT="***your DB port***" as default for Mysql 3306
-
-***This user will serve as the admin service account for initializing the database, and will then log out.***
-    GVP_DB='garagevparrot'
-    GVPA_DB_USER="administrator"  
-    GVPA_DB_PASSWORD="@dmiN123"
-
-***This user will connect to the database after initialization with reduced access rights, and will use Sequelize.***
-    GVPE_DB_USER='garage'
-    GVPE_DB_PASSWORD="G@r@ge123"
-
-
-***to implement users in database users table***
-    USER_ADMIN_PASSWORD="***a password***"
-    USER_JEANBON_PASSWORD="***a password***"
-
-***to hash pass and use jwt***
-    BCRYPT_SALT=***a number***
-    JWT_SECRET_SENTENCE="***a big sentence***"
-    JWT_DURING=***a duration in hours like 1h***
-
-
-/**************************************************/
-/*********Initialiation of the Database************/
-
-from api : npm run init
-CMD:
-Option 1:  (with xampp, otherwise from your shell mysql path file ==>) 
-    "from" C:/
-    cd xammp/mysql/bin
-==> mysql -u root -p
-
     START TRANSACTION;
-    CREATE DATABASE IF NOT EXISTS garagevparrot;
-    SHOW DATABASES;
-    CREATE USER IF NOT EXISTS 'administrator'@'%' IDENTIFIED BY '@dmiN123';
-    GRANT ALL PRIVILEGES ON *.* TO 'administrator'@'%' IDENTIFIED BY '@dmiN123' WITH GRANT OPTION;
-    CREATE USER IF NOT EXISTS 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
-    GRANT SELECT, INSERT, UPDATE, CREATE, DELETE ON garage.* TO 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
     DROP USER IF EXISTS 'root'@'%';
-    COMMIT;
-
-==> mysql exit;
-==> mysql -u administrator -p @dmiN123 -h garagevparrot
-
-    SHOW GRANTS FOR 'administrator'@'%';
-    SHOW GRANTS FOR 'user'@'%';
-    SELECT user, host FROM mysql.user;
-    START TRANSACTION;
+    CREATE DATABASE IF NOT EXISTS garage;
+    USE garage;
     CREATE TABLE user_role (
         id TINYINT AUTO_INCREMENT PRIMARY KEY,
         role VARCHAR(255) NOT NULL
     );
+    COMMIT;
     CREATE TABLE User (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
         last_name VARCHAR(255) NOT NULL,
@@ -211,7 +85,6 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         FOREIGN KEY (createdBy) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION,
         FOREIGN KEY (deletedBy) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION
     );
-    SHOW TABLES;
         CREATE TABLE testimony_Status (
         id TINYINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
         ValidateStatus VARCHAR(255) NOT NULL,
@@ -233,7 +106,6 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         FOREIGN KEY (validator) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION,
         FOREIGN KEY (status) REFERENCES testimony_Status(id) ON UPDATE CASCADE ON DELETE NO ACTION
     );
-    SHOW TABLES;
     CREATE TABLE section_page (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
         page_name VARCHAR(255) NOT NULL,
@@ -254,8 +126,7 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
     CREATE TABLE schedules_time_range (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
         time_range VARCHAR(255) NOT NULL,
-        createdAt DATETIME NOT NULL,
-        updatedAt DATETIME NOT NULL
+        createdAt DATETIME NOT NULL
     );
     CREATE TABLE schedules_day (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -291,7 +162,6 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         FOREIGN KEY (saturday) REFERENCES schedules_day(id),
         FOREIGN KEY (sunday) REFERENCES schedules_day(id)
     );
-    SHOW TABLES;
     CREATE TABLE message (
         id INT AUTO_INCREMENT PRIMARY KEY,
         sender_last_name VARCHAR(255) NOT NULL,
@@ -300,45 +170,9 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         sender_phone VARCHAR(255) NOT NULL,
         object VARCHAR(255) NOT NULL,
         refCar VARCHAR(255) NOT NULL,
+        content TEXT NOT NULL,
         createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
-    COMMIT
-
-
-Option 2: to show all steps (one table by file) in console.log
-CMD:
-    npm run initJS
-    
-/**************************************************/
-/**********Start the API **************************/   
-
- CMD:   
-    npm start 
-
-/**************************************************/
-/**********Start the application*******************/
-
-CMD:
-    cd ..
-    cd client
-    npm run dev ("vite")
-
-in private, you can connect with the email and password than you had chosen earlier :
-    USER_ADMIN_PASSWORD="***a password***"  ===> with admin access rights 
-    USER_JEANBON_PASSWORD="***a password***"  ===> with employee rigts
-    
-
-
-
-
-
-
-/*********************************************************************/
-/***                   To Build the project                        ***/    
-/*********************************************************************/
-
-    /**************************************************/
-    /********** Initializing the database *************/
-
-    
+    COMMIT;
+    SHOW TABLES;

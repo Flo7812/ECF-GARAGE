@@ -32,13 +32,11 @@ const Section = sequelize.define('section',{
 
     }
 },{
-    paranoid: true
+    paranoid: true,
+    freezeTableName: true
 });
 
-Section.belongsTo(SectionPage,{
-    onDelete: 'CASCADE',
-    foreignKey:'page', 
-})
+Section.belongsTo(SectionPage,{foreignKey:'page'})
 SectionPage.hasMany(Section, {foreignKey: 'page'})
 
 Section.add = async (title, content, img, position, page)=>{

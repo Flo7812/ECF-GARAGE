@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../../Connection/GVP');
 
 
-const UserRole = sequelize.define('User_Role',{
+const UserRole = sequelize.define('user_role',{
 
     id:{
         type: DataTypes.TINYINT,
@@ -17,6 +17,7 @@ const UserRole = sequelize.define('User_Role',{
     },
 },{
     timestamps: false,
+    freezeTableName: true
 })
 
 

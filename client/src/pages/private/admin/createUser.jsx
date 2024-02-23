@@ -6,7 +6,7 @@ export default function CreateUser(){
 
     const navigate = useNavigate()
     
-    const [datas, setDatas] = useState({
+    let [datas, setDatas] = useState({
         last_name: '',
         first_name:'',
         date_of_birth:'',
@@ -44,13 +44,15 @@ export default function CreateUser(){
             //     body: JSON.stringify(datas)
             // });
             if(r.status === 200){
-                const res = await r.data
-                const name = res.user.username
+                console.log(r);
+                let res = await r.data
+                let name = res.user.username
                 alert(`${name} a ete cree`)
                 navigate("/admin/home");
             }else{
-                const res = await r.data
-                const message = res.message
+                // console.log('ici');
+                let res = await r.data
+                let message = res.message
                 return alert(message)
             }
         } catch (error) {

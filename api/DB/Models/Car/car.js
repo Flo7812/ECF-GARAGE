@@ -1,14 +1,15 @@
-const { DataTypes, where } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../../Connection/GVP');
 const Seller = require('./seller')
 const Brand = require('./brand')
 const Model = require('./model')
 const Motor = require('./motor')
+const Image = require('./imagesCar')
 const User = require('../User/user')
 
 
 
-const Car = sequelize.define('Car',{
+const Car = sequelize.define('Cars',{
 
     id:{
         type: DataTypes.INTEGER(11),
@@ -53,9 +54,9 @@ const Car = sequelize.define('Car',{
         type: DataTypes.INTEGER(11),
         allowNull: false
     },
-    img:{
-        type: DataTypes.BLOB,
-        defaultValue: '',
+    images:{
+        type: DataTypes.INTEGER,
+        unique: true
         // allowNull: false
     },
     createdBy:{
@@ -65,13 +66,16 @@ const Car = sequelize.define('Car',{
     deletedBy:{
         type: DataTypes.INTEGER(11),
     }
-},{paranoid: true})
-
-Car.belongsTo(Seller,{
-    onDelete: 'CASCADE',
-    foreignKey:'seller', 
+},{
+    paranoid: true,
+    freezeTableName: true
 })
-Seller.hasMany(Car, {foreignKey: 'seller'})
+
+Car.belongsTo(Seller,{foreignKey:'seller'}) 
+Seller.hasMany(Car, {
+    onDelete: 'CASCADE',
+    foreignKey: 'seller'
+})
 
 Car.belongsTo(Brand,{
     onDelete: 'NO ACTION',
@@ -104,6 +108,15 @@ Car.belongsTo(User,{
     foreignKey:'deletedBy', 
 })
 User.hasMany(Car, {foreignKey: 'deletedBy'})
+
+Car.belongsTo(Image,{
+    onDelete: 'CASCADE',
+    foreignKey: 'img'
+})
+Image.hasMany(Car,{foreignKey: 'images'})
+
+    
+/*************************************************/
 
 Car.addRef = async function(d, id, br, md, mt ){
     

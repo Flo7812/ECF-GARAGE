@@ -48,7 +48,8 @@ exports.addUser = async(req, res)=>{
         if(!last_name || !first_name || /* !username || */ !email || !date_of_birth || !phone ||!address || !password){
             return res.status(400).json({message: "data(s) missing"})
         }
-        const user = await User.findOne({where : {email : email}, raw: true})
+        
+        const  user = await User.findOne({where : {email : email}, raw: true})
             if(!!user){
                 return res.status(409).json({message: `this user : ${user.last_name} ${user.first_name} already exists `})
             }

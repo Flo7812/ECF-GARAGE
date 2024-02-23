@@ -4,7 +4,7 @@ const TestimonyStatus = require('./testimonyStatus')
 const User = require('../User/user')
 
 
-const Testimony = sequelize.define('testimony',{
+const Testimony = sequelize.define('testimonials',{
     
     id:{
         type: DataTypes.INTEGER(11),
@@ -44,7 +44,7 @@ const Testimony = sequelize.define('testimony',{
     }
 },{
     paranoid: true,
-    tableName: 'testimonials'
+    freezeTableName: true
 });
 
 Testimony.belongsTo(User,{

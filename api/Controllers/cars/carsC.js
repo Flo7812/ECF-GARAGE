@@ -195,7 +195,7 @@ exports.addCar = async (req, res)=>{
 }
 
 async function add(req, res){
-    
+
     try {
 
         req.body.createdBy = req.id 
@@ -252,7 +252,7 @@ async function add(req, res){
                 req.body.motor = newMotor.id
             }
         }
-        
+
         const car = await Car.findOne({where : {brand: req.body.brand, model: req.body.model, motor: req.body.motor,initial_registration : req.body.initial_registration,kilometers : req.body.kilometers, seller: req.body.seller}}) 
         if(!!car){
             return res.status(409).json({message: `this car : ${brand} ${model_name} already exists `})
@@ -264,11 +264,12 @@ async function add(req, res){
             res.status(500).json({message: "Error Database if body content checked", error: e})
         }  
     } catch (error) {
-        res.status(500).json({message: 'ERROR add addCarWS_C:', error: error})
+        res.status(500).json({message: 'ERROR addCar add :', error: error})
     }
 }
 
 async function addWihoutSeller(req, res){
+
     try {
         req.body.createdBy = req.id 
         const pers = await Seller.findOne({where:{last_name : 'Simson'}})
@@ -325,6 +326,7 @@ async function addWihoutSeller(req, res){
         
         const car = await Car.findOne({where : {brand: req.body.brand, model: req.body.model, motor: req.body.motor,initial_registration : req.body.initial_registration,kilometers : req.body.kilometers}}) 
         if(!!car){
+            console.log('la');
             return res.status(409).json({message: `this car : ${brand} ${model_name} already exists `})
         }
 
@@ -336,7 +338,7 @@ async function addWihoutSeller(req, res){
         }  
         
     } catch (error) {
-        res.status(500).json({message: 'ERROR add addCarWS_C:', error: error})
+        res.status(500).json({message: 'ERROR addCar addWithoutSeller_C:', error: error})
     }
 }
 

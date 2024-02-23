@@ -1,5 +1,5 @@
-const  Section  = require('../../DB/Models/Sections/section');
-const  sectionPage  = require('../../DB/Models/Sections/sectionPage');
+const  {SectionMain, SectionPage}  = require('../../DB/Models/index');
+
 
 
 exports.getAllSections = async (req, res)=>{

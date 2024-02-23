@@ -13,7 +13,10 @@ const Brand = sequelize.define('car_brand',{
         type: DataTypes.STRING,
         allowNull: false
     }
-},{paranoid: true})
+},{
+    paranoid: true,
+    freezeTableName: true
+})
 
 
 /************* Get All *********************/

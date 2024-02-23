@@ -35,7 +35,8 @@ const Seller = sequelize.define('car_seller',{
         allowNull: false
     }
 },{
-    paranoid: true
+    paranoid: true,
+    freezeTableName: true
 });
 
 Seller.getId = async function (name){
