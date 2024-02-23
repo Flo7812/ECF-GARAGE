@@ -1,10 +1,10 @@
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { accountServices } from "../../_services/accountServices"
+import  {carServices}  from "../../_services/carServices.js"
 
 export default function CreateCar(){
     
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     
     const [datas, setDatas] = useState({
         seller_last_name: '',
@@ -31,7 +31,7 @@ export default function CreateCar(){
         })
     }
 
-    async function addCar(e) {
+    const addCar = async(e) =>{
         e.preventDefault();
         /* for (const data in datas) {
             const value = datas[data]
@@ -41,22 +41,15 @@ export default function CreateCar(){
             }}  */
         
         try {
-            const r = await accountServices.addCar(datas)
-            console.log(r);
-            if (r.status === 200) {
+            console.log('lal');
+            const r = await carServices.addCar(datas)
                 let res = await  r.data
                 let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée`
-                // console.log(result);
                 alert(result)
                 // navigate(`/user/occasions/fiche/:${res.car.id}`);
-            }else{
-                // let res = await r.data
-                let message = await r.data.message
-                alert(message)
+            } catch (error) {
+                alert(error.response.data.message);
             }
-        } catch (error) {
-            console.log(error);
-        }
     } 
 
 
@@ -64,7 +57,7 @@ export default function CreateCar(){
         <main className="login__container"> 
             <div /* className="form__container" */>
                 <h2>Create Car</h2>
-                <form className="form" action="" method="post">
+                <form className="form" action="" /* method="PUT" */>
                     <fieldset className="">
                         <legend>Informations Voiture </legend>
                             <input className="input__info" type="text" name="brand" placeholder="Marque"  value={datas.brand}  onChange={onChange} /><br />

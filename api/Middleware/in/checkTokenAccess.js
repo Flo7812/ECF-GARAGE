@@ -20,14 +20,14 @@ const extractBearer = (authorization) =>{
     return  matches  &&  matches[2] 
 }
 
-const checkTokenAccess = (req, res,next)=>{
+const checkTokenAccess = async(req, res,next)=>{
     try {
-        const token = req.headers.authorization && extractBearer(req.headers.authorization)
+        let token = req.headers.authorization && extractBearer(req.headers.authorization)
         if(!token){
             return res.status(401).json({message: 'Access denied for missing token'})
         }
         
-        req.token = jwt.verify(token, process.env.JWT_SECRET_SENTENCE, (err, decodedToken) =>{
+        req.token =  jwt.verify(token, process.env.JWT_SECRET_SENTENCE, (err, decodedToken) =>{
             if(err){
                 return res.status(401).json({message: 'Access denied for bad token'})
             }
@@ -35,7 +35,7 @@ const checkTokenAccess = (req, res,next)=>{
             req.username = decodedToken.username
             req.id = decodedToken.id
             req.role = decodedToken.role
-            return decodedToken
+            return  decodedToken
         })
         next()
     } catch (error) {

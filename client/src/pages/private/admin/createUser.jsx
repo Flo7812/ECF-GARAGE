@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { accountServices } from "../../../_services/accountServices"
+// import { useNavigate } from "react-router-dom"
+import { userServices } from "../../../_services/userServices.js"
 
 export default function CreateUser(){
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     
     let [datas, setDatas] = useState({
         last_name: '',
@@ -34,7 +34,7 @@ export default function CreateUser(){
             } 
         }
         try {
-            const r = await accountServices.addUser(datas)
+            const r = await userServices.addUser(datas)
             // const r = await fetch('http://127.0.0.1:1988/admin/users', {
             //     method: 'PUT',
             //     headers: {
@@ -43,20 +43,12 @@ export default function CreateUser(){
             //     },
             //     body: JSON.stringify(datas)
             // });
-            if(r.status === 200){
-                console.log(r);
                 let res = await r.data
                 let name = res.user.username
                 alert(`${name} a ete cree`)
-                navigate("/admin/home");
-            }else{
-                // console.log('ici');
-                let res = await r.data
-                let message = res.message
-                return alert(message)
-            }
+                // navigate("/admin/home");
         } catch (error) {
-            console.log(error);
+            alert(error.response.data.message);
         }
     }
 

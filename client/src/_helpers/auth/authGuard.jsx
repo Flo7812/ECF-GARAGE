@@ -1,6 +1,6 @@
 
 import { Navigate } from 'react-router-dom';
-import  { accountServices }  from '@/_services/accountServices' 
+import  { accountServices }  from '../../_services/accountServices.js' 
 
 const AuthGuard = ({children}) => {
 

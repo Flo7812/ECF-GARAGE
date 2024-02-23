@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {accountServices} from "@/_services/accountServices"
+import {accountServices} from "../../_services/accountServices.js"
 
 export default function Login() {
 
@@ -23,55 +23,19 @@ export default function Login() {
         if (log.email !=='' && log.password !==''){ 
             try {
                 const r = await accountServices.axlogin(log)    
-                if(r.status === 200){
                     const data = await r.data
-                
-                    if(data.role === 1){
-                        console.log(data.name);
-                        accountServices.saveUsername(data.username)
-                        accountServices.saveToken(data.access_token)
-                        accountServices.saveRole(data.role)
+                    accountServices.saveUsername(data.username)
+                    accountServices.saveToken(data.access_token)
+                    accountServices.saveRole(data.role)
+                    if(data.role === 1){                
                         navigate("/admin/home")
                     }else{
-                        console.log(data.name);
-                        accountServices.saveUsername(data.username)
-                        accountServices.saveToken(data.access_token)
-                        accountServices.saveRole(data.role)
                         navigate("/user/home")
                     }
-                }else{
-                const message = r.data.message
-                return alert(message)
-            }
-            /* const r = await fetch('http://127.0.0.1:1988/login', {
-                    method: 'POST',
-                    headers: {
-                        'content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(log )
-                });
-                if (r.ok) {
-                    console.log(r);
-                    const data = await r.json()
-                    const name = data.name
-                    console.log(`${name} est connecté`);
-                    alert(`${name} est connecté`)
-                    // localStorage
-                    console.log(data.role);
-                    if(data.role === 1){
-                        navigate("/admin/home");
-                    }else{
-                        navigate("/user/home");
-                    }
-                }else{
-                    console.log(r);
-                    const data = await r.json()
-                    const message = data.message
-                    return alert(message)
-                } */
 
             } catch (error) {
-                console.log(error.message);
+                alert('Accés non authorisé')
+                alert(error.response.data.message);
             }
         }else{
             alert("merci de remplir tout les champs")

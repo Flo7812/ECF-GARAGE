@@ -1,14 +1,14 @@
 
-import { useNavigate, useParams} from "react-router-dom";
-import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom";
+// import { useState, useEffect } from "react"
 
 const SecondHand = ({}) => {
 
     const navigate = useNavigate()
 
-    const [car, setCars]= useState({
+    /* const [car, setCars]= useState({
         
-    })
+    }) */
     
 
 

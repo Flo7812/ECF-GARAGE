@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { Routes,Route } from 'react-router-dom';
 
 const AuthRouter = () => {
@@ -12,4 +12,4 @@ const AuthRouter = () => {
     );
 };
 
-export default AuthRouter;
+export default AuthRouter; */

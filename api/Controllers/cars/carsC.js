@@ -326,7 +326,6 @@ async function addWihoutSeller(req, res){
         
         const car = await Car.findOne({where : {brand: req.body.brand, model: req.body.model, motor: req.body.motor,initial_registration : req.body.initial_registration,kilometers : req.body.kilometers}}) 
         if(!!car){
-            console.log('la');
             return res.status(409).json({message: `this car : ${brand} ${model_name} already exists `})
         }
 
