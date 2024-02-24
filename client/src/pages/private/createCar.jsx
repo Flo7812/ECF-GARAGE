@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import  {carServices}  from "../../_services/carServices.js"
+import  {carServices}  from "../../_services/carServices"
+
+
 
 export default function CreateCar(){
-    
+
+
     const navigate = useNavigate()
     
     const [datas, setDatas] = useState({
@@ -41,7 +44,6 @@ export default function CreateCar(){
             }}  */
         
         try {
-            console.log('lal');
             const r = await carServices.addCar(datas)
                 let res = await  r.data
                 let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée`

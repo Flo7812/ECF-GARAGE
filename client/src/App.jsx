@@ -14,9 +14,9 @@ function App() {
           <Route path="/*" element={<PublicRouter/>}/>
           
             <Route path="user/*" element={
-              <AuthGuard>
+              // <AuthGuard>
                   <UserRouter/>
-              </AuthGuard>
+              //</AuthGuard>
             }/>
             <Route path="admin/*" element={
             <AuthGuard>

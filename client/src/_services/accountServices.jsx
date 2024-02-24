@@ -1,5 +1,5 @@
-import Axios from "./callerServices.js"
 
+import Axios from "./callerServices.js"
 
 const saveToken = (token)=>{
     localStorage.setItem('token',token)
@@ -31,7 +31,7 @@ const logout = ()=>{
 
 }
 
-const islogged = async()=>{
+const islogged = ()=>{
     let token = localStorage.getItem('token')
     console.log('isLogged control');
     if(!!token){
@@ -44,14 +44,16 @@ const isAdmin = ()=>{
     console.log('isAdmin control');
     if(!!role){
         if(role === '1'){
+            
             return !!role
-        }else{
-            localStorage.removeItem('token')
-            localStorage.removeItem('username')
-            localStorage.removeItem('role')
-            return !role
         }
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        localStorage.removeItem('role')
+        alert('Ce n\'est pas un endroit pour vous')
+        
     }
+
 }
 
 const displayUsername = ()=>{

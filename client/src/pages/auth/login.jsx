@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {accountServices} from "../../_services/accountServices.js"
+import {accountServices} from "../../_services/accountServices"
 
 export default function Login() {
 
@@ -34,7 +34,7 @@ export default function Login() {
                     }
 
             } catch (error) {
-                alert('Accés non authorisé')
+                alert('Accés non autorisé')
                 alert(error.response.data.message);
             }
         }else{

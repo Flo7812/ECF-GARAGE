@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { accountServices } from './accountServices.js'
+import { accountServices } from './accountServices'
 
 
 
@@ -10,14 +10,10 @@ const  Axios = axios.create({
     // }
 })
 
-Axios.interceptors.request.use(async request =>{
-    if(accountServices.islogged()){
+Axios.interceptors.request.use( request =>{
+    
         request.headers.Authorization = `Bearer ${accountServices.getToken()}`
-
-        
-    }else{
-        console.log('ici');
-    }
+    
     return request
     
 })
