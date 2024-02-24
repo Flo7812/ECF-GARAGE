@@ -99,7 +99,7 @@ IDE : VScode
 Option 1: 
 ==> from api:
 
-    npm run intSeq
+    npm run initSQL
 
 Option 1 bis with Shell:    
  (with xampp, otherwise from your shell mysql path file ==>)  
@@ -309,7 +309,7 @@ Option 1 bis with Shell:
 
 ==> from api:
 
-    npm run intSeq
+    npm run initSeq
     
 Option 2: to show all steps (one table by file) in console.log
 
