@@ -1,4 +1,4 @@
-import ShedulesTable from "@/components/components/layout/public/ShedulesTable";
+import ShedulesTable from "@/components/layout/public/ShedulesTable";
 
 const Footer = () => {
 

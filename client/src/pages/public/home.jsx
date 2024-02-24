@@ -1,6 +1,6 @@
-import SectionHome from "@/components/components/layout/public/publicSectionHome";
-import SideBarTestimonials from "@/components/components/layout/public/publicSideBarTestimonials";
-import SideBarSecondHand from "@/components/components/layout/public/publicSideBarSecondHand"
+import SectionHome from "@/components/layout/public/publicSectionHome";
+import SideBarTestimonials from "@/components/layout/public/publicSideBarTestimonials";
+import SideBarSecondHand from "@/components/layout/public/publicSideBarSecondHand"
 
 const Home = () => {
     return (

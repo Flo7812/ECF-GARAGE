@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ConnectStatus from "@/components/components/layout/private/connectStatus";
+import ConnectStatus from "./connectStatus";
 
 
 const AdminHeader = () => {

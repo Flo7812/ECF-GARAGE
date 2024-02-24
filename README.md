@@ -40,11 +40,10 @@ IDE : VScode
                 
 
 /*********************************************************************/
-/***                Project initialization                         ***/
+/***                Packages initialization                        ***/
 /*********************************************************************/
 
     cd client
-        npm create vite@latest 
         npm install
         npm install react-router-dom axios 
     cd ..
@@ -60,7 +59,6 @@ IDE : VScode
 
 ! Please make a .env file for the API !
 
-CMD: 
     New-Item .env
     cd .env
 
@@ -96,13 +94,16 @@ CMD:
 
 
 /**************************************************/
-/*********Initialiation of the Database************/
+/*********Initialization of the Database***********/
 
-CMD from api :
-Option 1:  (with xampp, otherwise from your shell mysql path file ==>) 
+Option 1: 
+==> from api:
+    npm run intSeq
+Option 1 bis with Shell:    
+ (with xampp, otherwise from your shell mysql path file ==>)  
     "in vscode from" C:/
-    cd xammp/mysql/bin
-==> ./mysql -u root -p
+    cd xammp/mysql/bin 
+==> ./mysql -u root -p   
     "push ENTER"
 
     START TRANSACTION;
