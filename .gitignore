@@ -27,7 +27,7 @@ dist-ssr
 
 #files
 
-client/rsc/__unUsed
+client/src/__unUsed
 client/src/__unUsed/adminRouter.jsx
 client/src/__unUsed/publicRouter.jsx
 client/src/__unUsed/AdminIndex.js
