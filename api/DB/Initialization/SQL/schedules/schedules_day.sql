@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE schedules_day (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     day VARCHAR(255) NOT NULL,

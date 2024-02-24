@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE message (
     id INT AUTO_INCREMENT PRIMARY KEY,
     sender_last_name VARCHAR(255) NOT NULL,

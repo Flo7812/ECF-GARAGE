@@ -1,5 +1,5 @@
-
-CREATE TABLE user (
+USE garagevparrot;
+CREATE TABLE users (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     last_name VARCHAR(255) NOT NULL,
     first_name VARCHAR(255) NOT NULL,

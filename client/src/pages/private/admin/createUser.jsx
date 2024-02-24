@@ -45,7 +45,7 @@ export default function CreateUser(){
             // });
                 let res = await r.data
                 let name = res.user.username
-                alert(`${name} a ete cree`)
+                alert(`${name} a ete cree, par, ${res.by} `)
                 navigate("/admin/home");
         } catch (error) {
             alert(error.response.data.message);

@@ -1,13 +1,15 @@
     START TRANSACTION;
     DROP USER IF EXISTS 'root'@'%';
-    CREATE DATABASE IF NOT EXISTS garage;
-    USE garage;
+    CREATE DATABASE IF NOT EXISTS garagevparrot;
+    CREATE USER IF NOT EXISTS 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
+    GRANT SELECT, INSERT, UPDATE, CREATE, DELETE ON garagevparrot.* TO 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
+    USE garagevparrot;
     CREATE TABLE user_role (
         id TINYINT AUTO_INCREMENT PRIMARY KEY,
         role VARCHAR(255) NOT NULL
     );
     COMMIT;
-    CREATE TABLE User (
+    CREATE TABLE users (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
         last_name VARCHAR(255) NOT NULL,
         first_name VARCHAR(255) NOT NULL,
@@ -82,8 +84,8 @@
         FOREIGN KEY (model) REFERENCES car_model(id) ON DELETE NO ACTION,
         FOREIGN KEY (motor) REFERENCES car_motor(id) ON DELETE NO ACTION,
         FOREIGN KEY (images) REFERENCES car_images(id) ON DELETE CASCADE,
-        FOREIGN KEY (createdBy) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION,
-        FOREIGN KEY (deletedBy) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION
+        FOREIGN KEY (createdBy) REFERENCES users(id) ON UPDATE CASCADE ON DELETE NO ACTION,
+        FOREIGN KEY (deletedBy) REFERENCES users(id) ON UPDATE CASCADE ON DELETE NO ACTION
     );
         CREATE TABLE testimony_Status (
         id TINYINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
@@ -103,7 +105,7 @@
         deletedBy INT(11),
         createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (validator) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION,
+        FOREIGN KEY (validator) REFERENCES users(id) ON UPDATE CASCADE ON DELETE NO ACTION,
         FOREIGN KEY (status) REFERENCES testimony_Status(id) ON UPDATE CASCADE ON DELETE NO ACTION
     );
     CREATE TABLE section_page (
@@ -175,4 +177,3 @@
         updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
     COMMIT;
-    SHOW TABLES;

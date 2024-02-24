@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE schedules_week (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL DEFAULT 'Horaires',

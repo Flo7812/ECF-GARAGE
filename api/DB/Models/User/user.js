@@ -57,7 +57,6 @@ const User = sequelize.define('user',{
     }
 },{
     paranoid: true,
-    freezeTableName: true
 });
 
 User.belongsTo(UserRole,{foreignKey: 'role'})
@@ -90,9 +89,6 @@ User.add = async function({last_name : ln, first_name : fn,email: email,date_of_
     }
 }   
 
-User.afterCreate = (user)=>{
-    // make usename key with id?
-}
 
 User.beforeUpdate = async function(user){
     

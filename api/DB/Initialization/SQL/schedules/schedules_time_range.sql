@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE schedules_time_range (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     time_range VARCHAR(255) NOT NULL,

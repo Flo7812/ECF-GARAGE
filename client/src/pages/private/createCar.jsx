@@ -46,9 +46,13 @@ export default function CreateCar(){
         try {
             const r = await carServices.addCar(datas)
                 let res = await  r.data
-                let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée`
+                let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée, par ${res.by} `
                 alert(result)
-                navigate(`/user/occasions/fiche/:${res.car.id}`);
+                if(localStorage.getItem('role') === '1'){
+                    navigate(`/admin/occasions/fiche/:${res.car.id}`);
+                }else{
+                    navigate(`/user/occasions/fiche/:${res.car.id}`);
+                }
             } catch (error) {
                 alert(error.response.data.message);
             }

@@ -1,0 +1,3 @@
+
+CREATE USER IF NOT EXISTS 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
+GRANT SELECT, INSERT, UPDATE, CREATE, DELETE ON garagevparrot.* TO 'garage'@'%' IDENTIFIED BY 'G@r@ge123';

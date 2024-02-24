@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import AdminHeader from "@/layout/private/adminHeader";
-import Footer from "@/layout/public/Footer";
+import AdminHeader from "@/components/components/layout/private/adminHeader";
+import Footer from "@/components/components/layout/public/Footer";
 
 
 const AdminLayout = () => {

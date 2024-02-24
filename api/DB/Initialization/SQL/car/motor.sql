@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE car_motor (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     type VARCHAR(255) NOT NULL,

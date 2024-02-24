@@ -27,7 +27,6 @@ IDE : VScode
 
     packages client: 
                 react-router-dom 6.23.3
-                react-router 1.3.8 (Unnecessary with React 18) 
                 axios 1.6.7 
 
     packages api: 
@@ -44,19 +43,14 @@ IDE : VScode
 /***                Project initialization                         ***/
 /*********************************************************************/
 
-    mkdir api
-    cd api
-        npm install express dotenv mysql2 cors sequelize bcrypt jsonwebtoken
-        npm install --save-dev nodemon (for dev mode)
-        npm init -y
-    cd ..
-    mkdir client
     cd client
         npm create vite@latest 
         npm install
-        npm install react-router-dom axios jwt
-        npm init -y
-        git init
+        npm install react-router-dom axios 
+    cd ..
+    cd api
+        npm install express dotenv mysql2 cors sequelize bcrypt jsonwebtoken
+
 
 
 
@@ -67,7 +61,6 @@ IDE : VScode
 ! Please make a .env file for the API !
 
 CMD: 
-    cd api
     New-Item .env
     cd .env
 
@@ -105,35 +98,41 @@ CMD:
 /**************************************************/
 /*********Initialiation of the Database************/
 
-from api : npm run init
-CMD:
+CMD from api :
 Option 1:  (with xampp, otherwise from your shell mysql path file ==>) 
-    "from" C:/
+    "in vscode from" C:/
     cd xammp/mysql/bin
-==> mysql -u root -p
+==> ./mysql -u root -p
+    "push ENTER"
+
+    START TRANSACTION;
+    CREATE USER IF NOT EXISTS 'administrator'@'%' IDENTIFIED BY '@dmiN123';
+    GRANT ALL PRIVILEGES ON *.* TO 'administrator'@'%' IDENTIFIED BY '@dmiN123' WITH GRANT OPTION;
+    SHOW GRANTS FOR 'administrator'@'%';
+    SELECT user, host FROM mysql.user;
+    COMMIT;
+
+==> exit;
+==> ./mysql -u administrator -p 
+    @dmiN123 
 
     START TRANSACTION;
     CREATE DATABASE IF NOT EXISTS garagevparrot;
     SHOW DATABASES;
-    CREATE USER IF NOT EXISTS 'administrator'@'%' IDENTIFIED BY '@dmiN123';
-    GRANT ALL PRIVILEGES ON *.* TO 'administrator'@'%' IDENTIFIED BY '@dmiN123' WITH GRANT OPTION;
     CREATE USER IF NOT EXISTS 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
-    GRANT SELECT, INSERT, UPDATE, CREATE, DELETE ON garage.* TO 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
+    GRANT SELECT, INSERT, UPDATE, CREATE, DELETE ON garagevparrot.* TO 'garage'@'%' IDENTIFIED BY 'G@r@ge123';
+    SHOW GRANTS FOR 'garage'@'%';
     DROP USER IF EXISTS 'root'@'%';
-    COMMIT;
-
-==> mysql exit;
-==> mysql -u administrator -p @dmiN123 -h garagevparrot
-
-    SHOW GRANTS FOR 'administrator'@'%';
-    SHOW GRANTS FOR 'user'@'%';
     SELECT user, host FROM mysql.user;
+    USE garagevparrot;
     START TRANSACTION;
+    COMMIT;
+    
     CREATE TABLE user_role (
         id TINYINT AUTO_INCREMENT PRIMARY KEY,
         role VARCHAR(255) NOT NULL
     );
-    CREATE TABLE User (
+    CREATE TABLE users (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
         last_name VARCHAR(255) NOT NULL,
         first_name VARCHAR(255) NOT NULL,
@@ -208,10 +207,9 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         FOREIGN KEY (model) REFERENCES car_model(id) ON DELETE NO ACTION,
         FOREIGN KEY (motor) REFERENCES car_motor(id) ON DELETE NO ACTION,
         FOREIGN KEY (images) REFERENCES car_images(id) ON DELETE CASCADE,
-        FOREIGN KEY (createdBy) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION,
-        FOREIGN KEY (deletedBy) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION
+        FOREIGN KEY (createdBy) REFERENCES users(id) ON UPDATE CASCADE ON DELETE NO ACTION,
+        FOREIGN KEY (deletedBy) REFERENCES users(id) ON UPDATE CASCADE ON DELETE NO ACTION
     );
-    SHOW TABLES;
         CREATE TABLE testimony_Status (
         id TINYINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
         ValidateStatus VARCHAR(255) NOT NULL,
@@ -230,10 +228,9 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         deletedBy INT(11),
         createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (validator) REFERENCES user(id) ON UPDATE CASCADE ON DELETE NO ACTION,
+        FOREIGN KEY (validator) REFERENCES users(id) ON UPDATE CASCADE ON DELETE NO ACTION,
         FOREIGN KEY (status) REFERENCES testimony_Status(id) ON UPDATE CASCADE ON DELETE NO ACTION
     );
-    SHOW TABLES;
     CREATE TABLE section_page (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
         page_name VARCHAR(255) NOT NULL,
@@ -291,7 +288,6 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         FOREIGN KEY (saturday) REFERENCES schedules_day(id),
         FOREIGN KEY (sunday) REFERENCES schedules_day(id)
     );
-    SHOW TABLES;
     CREATE TABLE message (
         id INT AUTO_INCREMENT PRIMARY KEY,
         sender_last_name VARCHAR(255) NOT NULL,
@@ -303,26 +299,29 @@ Option 1:  (with xampp, otherwise from your shell mysql path file ==>)
         createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
-    COMMIT
+    SHOW TABLES;
+    COMMIT;
 
+==> exit;
 
+==> from api:
+    npm run intSeq
+    
 Option 2: to show all steps (one table by file) in console.log
-CMD:
+
     npm run initJS
     
 /**************************************************/
 /**********Start the API **************************/   
-
- CMD:   
+ 
     npm start 
 
 /**************************************************/
 /**********Start the application*******************/
 
-CMD:
     cd ..
     cd client
-    npm run dev ("vite")
+    npm run dev 
 
 in private, you can connect with the email and password than you had chosen earlier :
     USER_ADMIN_PASSWORD="***a password***"  ===> with admin access rights 

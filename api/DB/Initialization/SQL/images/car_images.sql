@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE car_images (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     img1 LONGBLOB NOT NULL,

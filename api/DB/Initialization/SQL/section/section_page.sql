@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE section_page (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     page_name VARCHAR(255) NOT NULL,

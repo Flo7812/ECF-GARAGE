@@ -1,4 +1,4 @@
-
+USE garagevparrot;
 CREATE TABLE section (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
