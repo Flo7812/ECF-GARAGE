@@ -22,6 +22,9 @@ router.get('/:id', (req, res)=>{
             }).catch(e => res.status(500).json({message: "Error Database", error: e}))
     }).catch(e => res.status(500).json({message: "Error Database", error: e}))
 });
+router.get('', (req, res)=>{
+    
+});
 
 
 

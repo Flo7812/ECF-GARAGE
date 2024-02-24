@@ -115,8 +115,12 @@ Car.belongsTo(Image,{
 })
 Image.hasMany(Car,{foreignKey: 'images'})
 
-    
+
 /*************************************************/
+
+Car.getCarByRef = async function(){
+
+}
 
 Car.addRef = async function(d, id, br, md, mt ){
     
@@ -152,20 +156,11 @@ Car.add = async function(body){
 }
 
 
-Car.getCarByRef = async function(){
+Car.displayCar = async function(){
 
 }
 
-Car.afterRestore = async function(){
-
-}
-
-
-Car.getDisplayCard = async function(){
-
-}
-
-Car.getDisplayCards = async function(){
+Car.displayCars = async function(){
     
 }
 

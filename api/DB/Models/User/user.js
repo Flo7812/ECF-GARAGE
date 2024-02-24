@@ -89,10 +89,13 @@ User.add = async function({last_name : ln, first_name : fn,email: email,date_of_
     }
 }   
 
+User.displayUser = async function(id){
 
-User.beforeUpdate = async function(user){
-    
 }
+User.displayUsers = async function(){
+
+}
+
 
 module.exports = User
 // console.log(User === sequelize.models.User);

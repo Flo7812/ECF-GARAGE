@@ -98,7 +98,9 @@ IDE : VScode
 
 Option 1: 
 ==> from api:
+
     npm run intSeq
+
 Option 1 bis with Shell:    
  (with xampp, otherwise from your shell mysql path file ==>)  
     "in vscode from" C:/
@@ -306,6 +308,7 @@ Option 1 bis with Shell:
 ==> exit;
 
 ==> from api:
+
     npm run intSeq
     
 Option 2: to show all steps (one table by file) in console.log
