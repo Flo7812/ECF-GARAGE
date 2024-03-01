@@ -55,7 +55,6 @@ async function initDB(){
         console.log('Sequelize ERROR:',error);
     }
     try {
-        console.log('ici')
         await require('./initDBTables')
     } catch (error) {
         console.log('Instances Tables ERROR:',error);

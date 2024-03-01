@@ -2,22 +2,28 @@ import Axios from "./callerServices.js"
 
 
 const getCars = ()=>{
-    return Axios.get('/user/cardsCars/'+cid)
+    return Axios.get('/user/cardsCars')
 }
-const getCar = ()=>{
+const getCar = (cid)=>{
     return Axios.get('/user/cardsCars/'+cid)
 }
 const addCar = (datas)=>{
     return Axios.put('/user/cardsCars',datas)
 }
-const patchCar = ()=>{
+const patchCar = (cid)=>{
     return Axios.patch('/user/cardsCars/'+cid)
 }
-const softDeleteCar = ()=>{
+const logiqueDeleteCar = (cid)=>{
     return Axios.post('/user/cardsCars/'+cid)
 }
-const trashDeleteCar = ()=>{+cid
+const deleteImages = (iid)=>{
+    return Axios.delete('/user/cardsCars/images/'+iid)
+}
+const deleteCar = (cid)=>{
     return Axios.post('/user/cardsCars/'+cid)
+}
+const addImages = (datas)=>{
+    return Axios.put('/user/cardsCars/images', datas)
 }
 
 
@@ -27,6 +33,8 @@ export const carServices = {
     getCars,
     addCar,
     patchCar,
-    softDeleteCar,
-    trashDeleteCar
+    logiqueDeleteCar,
+    deleteCar,
+    addImages, 
+    deleteImages
 }

@@ -7,8 +7,10 @@ const AuthGuard = ({children}) => {
 
     if(!accountServices.islogged()){
         return <Navigate to={"/login"}/> 
+    }else{
+        return children 
     }
-    return children  
+    
 
 };
 

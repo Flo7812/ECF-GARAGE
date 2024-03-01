@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const PORT = process.env.PORT || 1998
+const PORT = process.env.PORT || 1988
 
 /*********** Server ********************/
 const api = express()
@@ -24,8 +24,8 @@ api.listen(PORT, async()=>{
 })
 
 /********** Controllers Requires ******/
-const { getMainSections } = require('./Controllers/sections/sectionsC')
-const { getCardCars } = require('./Controllers/cars/carsC')
+
+const { getCardsCars } = require('./Controllers/cars/carsC')
 const { getValidateTestimonials } = require('./Controllers/Testimonials/testimonialsC')
 
 /*********** Router Requires **********/
@@ -36,12 +36,12 @@ const testimony_router = require('./Routes/Public/testimonials')
 const shedules_router = require('./Routes/Public/shedules')
 
 const login_router = require('./Routes/Public/login')
-const user_router = require('./Routes/Private/USER/router_UR')
-const admin_router = require('./Routes/Private/ADMIN/router_AR')
+const user_router = require('./Routes/Private/USER/dashboard_UR')
+const admin_router = require('./Routes/Private/ADMIN/dashboard_AR')
 
 
 /*********** Router **********/
-api.get('', getMainSections, getValidateTestimonials, getCardCars)
+api.get('', getValidateTestimonials, getCardsCars)
 api.use('/cars', cars_router)
 api.use('/services', sections_router)
 api.use('/testimonials', testimony_router)

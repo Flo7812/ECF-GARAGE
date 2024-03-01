@@ -1,12 +1,9 @@
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import  {carServices}  from "../../_services/carServices"
-
-
+import { carServices } from "../../_services/carServices"
 
 export default function CreateCar(){
-
-
+    
     const navigate = useNavigate()
     
     const [datas, setDatas] = useState({
@@ -34,46 +31,67 @@ export default function CreateCar(){
         })
     }
 
-    const addCar = async(e) =>{
+    const [images, setImages]= useState({
+        img1:'',
+        img2:'',
+        img3:'',
+        img4:'',
+        img5:''
+    })
+
+    const handleImageChange = (e) => {
+        setImages({
+        ...images,
+        [e.target.name]: e.target.files[0]
+        });
+    };
+
+    const  addCar = async(e)=> {
         e.preventDefault();
-        /* for (const data in datas) {
-            const value = datas[data]
-            if(!value){
-                alert('merci de remplir tout les champs obligatoires')
-                return
-            }}  */
-        
-        try {
+        //controle presence et format des données ici ... a faire
+            try {
+            const formData = new FormData();
+            for (const imageName in images) {
+                formData.append(imageName, images[imageName]);
+            }
+            const img = await carServices.addImages(formData)
+            let i = await  img.data
+            if(!!i.imgId){
+                datas.images = i.imgId
+            }else{
+                datas.images = i.id
+            }
             const r = await carServices.addCar(datas)
-                let res = await  r.data
-                let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée, par ${res.by} `
-                alert(result)
+            let res = await  r.data
+            let result = `${datas.brand} ${datas.model_name} ref: ${res.car.ref} à été créée, par ${res.by} `
+            alert(result)
                 if(localStorage.getItem('role') === '1'){
                     navigate(`/admin/occasions/fiche/:${res.car.id}`);
                 }else{
                     navigate(`/user/occasions/fiche/:${res.car.id}`);
                 }
             } catch (error) {
-                alert(error.response.data.message);
+                await carServices.deleteImages(datas.images)
+                return alert(error.response.data.message);
             }
-    } 
+        } 
+    
 
 
     return (
         <main className="login__container"> 
             <div /* className="form__container" */>
                 <h2>Create Car</h2>
-                <form className="form" action="" /* method="PUT" */>
+                <form className="form">
                     <fieldset className="">
                         <legend>Informations Voiture </legend>
                             <input className="input__info" type="text" name="brand" placeholder="Marque"  value={datas.brand}  onChange={onChange} /><br />
                             <input className="input__info" type="text" name="kilometers" placeholder="kilometres" value={datas.kilometers}  onChange={onChange} />            
                             <input className="input__info" type="text" name="price" placeholder="Prix" value={datas.price}  onChange={onChange} /> 
-                            <label htmlFor="initial_registration">Date de mise en circulation
-                                <input className="input__info" type="date" name="initial_registration" value={datas.initial_registration}  onChange={onChange} />                    
-                            </label>
-                            <input className="input__info" type="text" name="img" placeholder="inserer image" /* value={datas.last_name}  onChange={onChange} */ />                                
+                            <label htmlFor="initial_registration">Date de mise en circulation</label>
+                                <input className="input__info" id="initial_regitration" type="date" name="initial_registration" value={datas.initial_registration}  onChange={onChange} />                    
                             <textarea className="textarea__info" type="text" name="description" placeholder="Description" value={datas.description}  onChange={onChange} />                                
+                            
                     </fieldset>
                             
                     <fieldset className="">
@@ -88,6 +106,19 @@ export default function CreateCar(){
                             <input className="input__info" type="text" name="motor_type" placeholder="essence / diesel etc..." value={datas.motor_type}  onChange={onChange} />   
                             <input className="input__info" type="text" name="motor_description" placeholder="1L6..." value={datas.motor_description}  onChange={onChange} />   
                             <button>Creer moteur</button>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Images</legend>
+                        <label htmlFor="img1">image 1</label>
+                            <input id="img1" className="input__info" type="file" name="img1" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                        <label htmlFor="img2">image 2</label>
+                            <input id="img2" className="input__info" type="file" name="img2" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                        <label htmlFor="img3">image 3</label>
+                            <input id="img3" className="input__info" type="file" name="img3" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                        <label htmlFor="img4">image 4</label>
+                            <input id="img4" className="input__info" type="file" name="img4" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                        <label htmlFor="img5">image 5</label>
+                            <input id="img5" className="input__info" type="file" name="img5" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
                     </fieldset>
                     <fieldset className="">
                         <legend>Informations Vendeur</legend>

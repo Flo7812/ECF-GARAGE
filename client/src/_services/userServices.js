@@ -12,10 +12,10 @@ const addUser = (datas)=>{
 const patchUser = ()=>{
     return Axios.patch('/admin/users/'+uid)
 }
-const softDeleteUser = ()=>{
+const logiqueDeleteUser = ()=>{
     return Axios.post('/admin/users/'+uid)
 }
-const trashDeleteUser = ()=>{
+const deleteUser = ()=>{
     return Axios.post('/admin/users/'+uid)
 }
 
@@ -26,7 +26,7 @@ export const userServices = {
     getUsers,
     addUser,
     patchUser,
-    softDeleteUser,
-    trashDeleteUser
+    logiqueDeleteUser,
+    deleteUser
 
 }

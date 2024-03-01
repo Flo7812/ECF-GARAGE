@@ -1,1 +1,1 @@
-const  {ShedulesTableModel, ShedulesDays}  = require('../../DB/Models/index');
+const  {SchedulesWeek, SchedulesDay, SchedulesTimeRange}  = require('../../DB/Models/index');

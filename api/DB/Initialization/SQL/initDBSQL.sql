@@ -58,10 +58,15 @@
     CREATE TABLE car_images (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,
         img1 LONGBLOB NOT NULL,
+        img1description VARCHAR(255) NOT NULL,
         img2 LONGBLOB,
+        img2description VARCHAR(255),
         img3 LONGBLOB,
+        img3description VARCHAR(255),
         img4 LONGBLOB,
-        img5 LONGBLOB
+        img4description VARCHAR(255),
+        img5 LONGBLOB,
+        img5description VARCHAR(255)
     );
     CREATE TABLE cars (
         id INT(11) AUTO_INCREMENT PRIMARY KEY,

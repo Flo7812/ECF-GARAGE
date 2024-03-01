@@ -25,3 +25,4 @@ dist-ssr
 *.sln
 *.sw?
 
+client/src/pages/private/admin/test.txt

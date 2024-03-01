@@ -1,10 +1,10 @@
 Project ECF "Garage Vincent Parrot"
 
 Serveur:
-    XAMMP 8.2.4
-    Apache 2.4.56
-    (phpMyadmin)
-    MariaDB  10.4.28
+    XAMMP 8.2.4:
+        Apache 2.4.56
+        (phpMyadmin)
+        MariaDB  10.4.28
 
 Front(client):
     HTML 5
@@ -26,8 +26,10 @@ IDE : VScode
                 Reactjs code snippets 2.4.0
 
     packages client: 
+                react-dom 18.2.0
                 react-router-dom 6.23.3
                 axios 1.6.7 
+
 
     packages api: 
                 bcrypt 5.1.1 
@@ -45,7 +47,7 @@ IDE : VScode
 
     cd client
         npm install
-        npm install react-router-dom axios 
+        npm install react-router-dom axios dotenv
     cd ..
     cd api
         npm install express dotenv mysql2 cors sequelize bcrypt jsonwebtoken
@@ -57,21 +59,18 @@ IDE : VScode
 /***           To start the application                            ***/
 /*********************************************************************/
 
-! Please make a .env file for the API !
+!!! Please make a .env file for API  and complete this file according to the following instructions :
 
     New-Item .env
-    cd .env
 
-/******enter this datas******/
-
-    PORT=***a port number***
-    HOST="***your host***" as default "localhost"
-    DB='' ***an empty DB***
+    PORT=1988 ***If you change this number, you will have to change the url for axios in client/src/_sevice/callerServices.js***
+    HOST="localhost" or "http://127.0.0.1". ***The same applies to PORT.***
+    DB='' (keep it empty) 
 
 ***For the first connection, need an user with 'GRANT OPTION' to create the admin, BE CAREFUL note that 'root'@'%' will be destroyed during initialization.***
-    DB_USER='root' as default
-    DB_PASSWORD='' as defautl
-    DB_PORT="***your DB port***" as default for Mysql 3306
+    DB_USER='root'  as default
+    DB_PASSWORD=''  as default
+    DB_PORT=3306    as default for Mysql 
 
 ***This user will serve as the admin service account for initializing the database, and will then log out.***
     GVP_DB='garagevparrot'
@@ -83,11 +82,11 @@ IDE : VScode
     GVPE_DB_PASSWORD="G@r@ge123"
 
 
-***to implement users in database users table***
+***To implement users in database users table***
     USER_ADMIN_PASSWORD="***a password***"
     USER_JEANBON_PASSWORD="***a password***"
 
-***to hash pass and use jwt***
+***To hash pass and use jwt***
     BCRYPT_SALT=***a number***
     JWT_SECRET_SENTENCE="***a big sentence***"
     JWT_DURING=***a duration in hours like 1h***
@@ -96,17 +95,19 @@ IDE : VScode
 /**************************************************/
 /*********Initialization of the Database***********/
 
+!!!Please choose an option to initiate the DATABASE:
+
 Option 1: 
 ==> from api:
 
     npm run initSQL
 
-Option 1 bis with Shell:    
+Option 1bis with Shell:    
  (with xampp, otherwise from your shell mysql path file ==>)  
     "in vscode from" C:/
     cd xammp/mysql/bin 
 ==> ./mysql -u root -p   
-    "push ENTER"
+    "just push ENTER for the password"
 
     START TRANSACTION;
     CREATE USER IF NOT EXISTS 'administrator'@'%' IDENTIFIED BY '@dmiN123';
@@ -306,12 +307,12 @@ Option 1 bis with Shell:
     COMMIT;
 
 ==> exit;
-
-==> from api:
+AND
+from api:
 
     npm run initSeq
     
-Option 2: to show all steps (one table by file) in console.log
+Option 2: to show all steps (one table by file) with console.log
 
     npm run initJS
     

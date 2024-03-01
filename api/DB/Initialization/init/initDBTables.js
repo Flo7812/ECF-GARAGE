@@ -1,8 +1,31 @@
 const bcrypt = require('bcrypt')
+const fs = require('fs')
+const util = require('util')
+const path = require('path')
 const DBmodels = require('../../Models/index');
 
 async function initDBTables(){
     try {
+        const route1 = path.join(__dirname, '..', '..', '..', 'assets', 'Logo1.png')
+        const route2 = path.join(__dirname, '..', '..', '..', 'assets', 'LogoVoitureColoriage.png')
+        const route3 = path.join(__dirname, '..', '..', '..', 'assets', 'Screenshot 2024-02-20 230942.png')
+        const route4 = path.join(__dirname, '..', '..', '..', 'assets', 'Sidous.jpeg')
+        const images = {route1, route2, route3, route4}
+        const newArray = []
+        const fsrf = util.promisify(fs.readFile)
+        for (const route in images) {
+            const data =  await fsrf(images[route])
+            // console.log(data);
+            const arrayName = images[route].split('\\');
+            // console.log(arrayName);
+            const name = arrayName[arrayName.length - 1];
+            // console.log(name);
+            let image = {img1: data, img1description : name}
+            newArray.push(image)
+        }
+        // console.log(newArray);
+        await DBmodels.Image.bulkCreate(newArray) 
+
         await DBmodels.UserRole.bulkCreate([
                 {role: 'admin'},
                 {role: 'employee'}
@@ -135,6 +158,7 @@ async function initDBTables(){
                         initial_registration: '2009-06-09',
                         description: 'Une super voiture!',
                         seller: '1',
+                        images: '1',
                         createdBy:'2'
                     },
                     {
@@ -147,6 +171,7 @@ async function initDBTables(){
                         initial_registration: '2021-11-29',
                         description: 'Ideale pour des petits trajets.',
                         seller: '1',
+                        images: '2',
                         createdBy:'2'
                     },
                     {
@@ -159,6 +184,7 @@ async function initDBTables(){
                         initial_registration: '2013-09-30',
                         description: 'Un classique pour tout les jours et les vacances!!',
                         seller: '3',
+                        images: '3',
                         createdBy:'2'
                     },
                     {
@@ -171,10 +197,11 @@ async function initDBTables(){
                         initial_registration: '2003-04-01',
                         description: 'Fiable!!',
                         seller: '2',
+                        images: '4',
                         createdBy:'2'
-                    },
+                    }
                 ])
-                .then(()=>('instances Cars OK'))
+                .then(()=> console.log('instances Cars OK'))
                 .catch((e)=> console.log('Unable to create instances of Table Cars', e))
 
             await DBmodels.Testimony.bulkCreate([

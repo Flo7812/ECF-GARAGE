@@ -171,5 +171,21 @@ table{
         a:hover{
         text-shadow:  8px 5px 10px rgba(0, 0, 0, 0.8);
         }    
+
+        
+    }
+    .drop-area{
+        width: 100px;
+        height: 30px;
+        border: solid 1px rgb(121, 117, 117);
+        border-radius: 5px;
+        background-color: #fff;
+        text-align: center;
+    }
+    .placeholder-text{
+        color: gray;
+        font-size: 0.8rem;
+        
     }
 }
+

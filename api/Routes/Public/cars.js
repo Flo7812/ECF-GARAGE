@@ -1,16 +1,16 @@
 const express = require('express')
 let router = express.Router()
 const car_router = require('./car')
-const { getCarById, getCarsByMotorId, getCarsByModelId, getCarsByBrandId, getCars } = require('../../Controllers/cars/carsC')
+const { getCardCar, getCarsByMotorId, getCarsByModelId, getCarsByBrandId, getCardsCars } = require('../../Controllers/cars/carsC')
 
 
 
 router.use('/car', car_router)
 
 
-router.get('', getCars);
+router.get('', getCardsCars);
 
-router.get('/:id', getCarById);
+router.get('/:id', getCardCar);
 
 router.get('/brand/:id', getCarsByBrandId);
 

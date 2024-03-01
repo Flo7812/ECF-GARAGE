@@ -56,8 +56,8 @@ const Car = sequelize.define('Cars',{
     },
     images:{
         type: DataTypes.INTEGER,
-        unique: true
-        // allowNull: false
+        unique: true,
+        allowNull: false
     },
     createdBy:{
         type: DataTypes.INTEGER(11),
@@ -111,9 +111,9 @@ User.hasMany(Car, {foreignKey: 'deletedBy'})
 
 Car.belongsTo(Image,{
     onDelete: 'CASCADE',
-    foreignKey: 'img'
+    foreignKey: 'images'
 })
-Image.hasMany(Car,{foreignKey: 'images'})
+Image.hasOne(Car,{foreignKey: 'images'})
 
 
 /*************************************************/
@@ -152,6 +152,7 @@ Car.add = async function(body){
         return superCar
     } catch (error) {
         console.log('Unable to create a superCar',error);
+        return
     }
 }
 

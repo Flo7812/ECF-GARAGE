@@ -21,16 +21,8 @@ async function reqCarData(cars, res){
 
         
 /********public **************/
-exports.getCarsDBdatas = (req,res)=>{
-    try {
-        Car.findAll()
-        .then(cars => res.json({data: cars}))
-    } catch (error) {
-        res.status(500).json({message: "Error Database", error: e})
-    }
-}
 
-exports.getCarDBdatasById = (req,res)=>{
+exports.getCar= (req,res)=>{
     let carId = parseInt(req.params.id)
         if(!carId){
             return res.status(400).json({message: "id parameter missing or not id"})
@@ -49,37 +41,7 @@ exports.getCarDBdatasById = (req,res)=>{
     }
 }
 
-exports.getCardCars = (req,res)=>{
-    let carId = parseInt(req.params.id)
-        if(!carId){
-            return res.status(400).json({message: "id parameter missing or not id"})
-        }
-    try {
-        Car.findByPk( carId )
-        .then(car=> {
-            if((car === null)){
-                return res.status(404).json({message: `Car with this id: ${car} doesn't exist`})
-            }
-            console.log({data : car.dataValues});
-            return res.json({data: car})
-        })
-    } catch (error) {
-        res.status(500).json({message: "Error Database", error: error})
-    }
-}
-
-
-
-exports.getCars = async(req,res)=>{
-    try {
-        const cars = await Car.findAll()
-        reqCarData(cars, res)
-    } catch (error) { 
-        return res.status(500).json({ message: "Error Database", error })
-    }
-}
-
-exports.getCarById = async(req,res)=>{
+exports.getCardCar = async(req,res)=>{
     let carId = parseInt(req.params.id)
     if(!carId){
         return res.status(400).json({message: "id parameter missing or not id"})
@@ -100,6 +62,27 @@ exports.getCarById = async(req,res)=>{
         res.status(500).json({ message: "Error Database", error })
     }
 }
+
+
+exports.getCarsDBdatas = (req,res)=>{
+    try {
+        Car.findAll()
+        .then(cars => res.json({data: cars}))
+    } catch (error) {
+        res.status(500).json({message: "Error Database", error: e})
+    }
+}
+
+exports.getCardsCars = async(req,res)=>{
+    try {
+        const cars = await Car.findAll()
+        reqCarData(cars, res)
+    } catch (error) { 
+        return res.status(500).json({ message: "Error Database", error })
+    }
+}
+
+
 
 exports.getCarsByBrandId = async (req,res)=>{
     let brandId = parseInt(req.params.id)
@@ -181,10 +164,16 @@ exports.getCarsByMotorName = async(req,res)=>{
         res.status(500).json({ message: "Error Database", error })
     }
 }
+
 /********private **************/
+
+
 exports.addCar = async (req, res)=>{
     try {
+        req.body.createdBy = req.id 
+        
         if(req.body.seller_last_name && req.body.seller_first_name){
+            
             add(req, res)
         }else{
             addWihoutSeller(req, res)
@@ -194,11 +183,11 @@ exports.addCar = async (req, res)=>{
     }
 }
 
+
 async function add(req, res){
 
     try {
-
-        req.body.createdBy = req.id 
+        
 
         let {brand, model_name, model_serie, model_description, motor_type, motor_description, price, kilometers, initial_registration, seller_last_name, createdBy} = req.body
         if(!brand || !model_name || !motor_type ||  !price || !kilometers || !initial_registration || !seller_last_name || !createdBy){
@@ -271,7 +260,7 @@ async function add(req, res){
 async function addWihoutSeller(req, res){
 
     try {
-        req.body.createdBy = req.id 
+        
         const pers = await Seller.findOne({where:{last_name : 'Simson'}})
         if(!!pers){
             req.body.seller = pers.id
@@ -344,7 +333,7 @@ async function addWihoutSeller(req, res){
 
 
 
-exports.modifyCarById = async(req,res)=>{
+exports.updateCar = async(req,res)=>{
     try {
         let carId = parseInt(req.params.id)
         if(!carId){
@@ -380,7 +369,7 @@ exports.modifyCarById = async(req,res)=>{
     }
 }
 
-exports.softDeleteCarById = async(req,res)=>{
+exports.logiqueDeleteCar = async(req,res)=>{
     try {
         req.body.deletedBy = req.id
         let carId = parseInt(req.params.id)
@@ -432,7 +421,7 @@ exports.restoreCarById = async(req,res)=>{
     }
 }
 
-exports.trashDeleteCarById = async(req,res)=>{
+exports.deleteCar = async(req,res)=>{
     try {
         let carId = parseInt(req.params.id)
         if(!carId){

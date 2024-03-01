@@ -1,4 +1,4 @@
-
+// import jwt from 'jsonwebtoken'
 import Axios from "./callerServices.js"
 
 const saveToken = (token)=>{
@@ -34,25 +34,26 @@ const logout = ()=>{
 const islogged = ()=>{
     let token = localStorage.getItem('token')
     console.log('isLogged control');
-    if(!!token){
+    if(!!token && token !== null && token !== undefined && token !== ''){
         return !!token
     }
+    return !!token
+
 }
 
 const isAdmin = ()=>{
     let role = localStorage.getItem('role')
     console.log('isAdmin control');
     if(!!role){
-        if(role === '1'){
-            
+        if(role === '1' && role !== null && role !== undefined && role !== ''){
             return !!role
         }
         localStorage.removeItem('token')
         localStorage.removeItem('username')
         localStorage.removeItem('role')
         alert('Ce n\'est pas un endroit pour vous')
-        
-    }
+        return !role
+    }return !!role
 
 }
 

@@ -31,13 +31,13 @@ const checkTokenAccess = async(req, res,next)=>{
             if(err){
                 return res.status(401).json({message: 'Access denied for bad token'})
             }
-            // res.status(200).json({message:'Authorized access from Token control'})
             req.username = decodedToken.username
             req.id = decodedToken.id
             req.role = decodedToken.role
-            return  decodedToken
+            // return  decodedToken
+            next()
         })
-        next()
+        
     } catch (error) {
         res.status(500).json({message: 'Error from token control', error: error})
     }

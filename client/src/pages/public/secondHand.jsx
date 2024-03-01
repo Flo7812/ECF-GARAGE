@@ -1,6 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
-// import { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
+import { carServices } from "../../_services/carServices";
 
 const SecondHand = ({}) => {
 
@@ -9,7 +10,10 @@ const SecondHand = ({}) => {
     /* const [car, setCars]= useState({
         
     }) */
-    
+    /* useEffect = (()=>{
+        carServices.getCardsCars()
+
+    },[]) */
 
 
     return (
