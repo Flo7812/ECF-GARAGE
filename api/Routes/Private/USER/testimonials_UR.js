@@ -1,7 +1,8 @@
 const express = require('express')
 let router = express.Router()
 const {Testimony} = require('../../../DB/Models/index')
-// const {} = require('../../../Controllers/testimonials/testimonialsC')
+const { getToValidateTestimonials } = require('../../../Controllers/Testimonials/testimonialsC')
+
 
 
 //get a testimony
@@ -22,9 +23,7 @@ router.get('/:id', (req, res)=>{
             }).catch(e => res.status(500).json({message: "Error Database", error: e}))
     }).catch(e => res.status(500).json({message: "Error Database", error: e}))
 });
-router.get('', (req, res)=>{
-    
-});
+router.get('', getToValidateTestimonials);
 
 
 

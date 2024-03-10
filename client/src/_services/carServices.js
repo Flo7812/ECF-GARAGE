@@ -4,6 +4,9 @@ import Axios from "./callerServices.js"
 const getCars = ()=>{
     return Axios.get('/user/cardsCars')
 }
+const getPublicCars = ()=>{
+    return Axios.get('/cars')
+}
 const getCar = (cid)=>{
     return Axios.get('/user/cardsCars/'+cid)
 }
@@ -36,5 +39,6 @@ export const carServices = {
     logiqueDeleteCar,
     deleteCar,
     addImages, 
-    deleteImages
+    deleteImages, 
+    getPublicCars
 }

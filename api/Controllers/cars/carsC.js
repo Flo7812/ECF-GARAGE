@@ -1,22 +1,30 @@
-const { Car, Brand, Model, Motor, Seller} = require('../../DB/Models/index')
+const { Car, Brand, Model, Motor, Seller, Image} = require('../../DB/Models/index')
 const toFirstStrUppC = require('../../Utils/toFirstStringUpperCase')
 
 //function to get brand, model and motor name from their own tables
 async function reqCarData(cars, res){
-    const carsData = []
+    const carsDatas = []
     for (const car of cars) {
         const brand = await Brand.findByPk(car.brand)
         const model = await Model.findByPk(car.model)
         const motor = await Motor.findByPk(car.motor)
+        const image = await Image.findByPk(car.images)
+        for (const key in image.dataValues) {
+            if(key.match(/^img[1-5]$/) && image.dataValues[key]!== null){
+                image.dataValues[key] = image.dataValues[key].toString('base64')
+            }
+        }
+        // console.log(image);
         const carData = {
             ...car.dataValues,
             brand: brand.name,
-            model: model.name,
-            motor: `${motor.type} ${motor.description}`
+            model: `${model.name} ${model.serie} ${model.description}`,
+            motor: `${motor.type} ${motor.description}`,
+            images: image
         }
-        carsData.push(carData);
+        carsDatas.push(carData);
     }
-        return res.status(200).json({ data: carsData })
+        return res.status(200).json({ data: carsDatas })
 }
 
         
@@ -64,7 +72,7 @@ exports.getCardCar = async(req,res)=>{
 }
 
 
-exports.getCarsDBdatas = (req,res)=>{
+exports.getCars = async (req,res)=>{
     try {
         Car.findAll()
         .then(cars => res.json({data: cars}))

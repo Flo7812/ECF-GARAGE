@@ -9,7 +9,7 @@ exports.getUsers = async(req, res)=>{
             }
             const allUsers = []
             for (const user of users) {
-                console.log(user.role);
+                // console.log(user.role);
                     const userRole = await UserRole.findByPk(user.role)
                     const userDatas = {
                         ...user.dataValues,

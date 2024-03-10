@@ -8,9 +8,7 @@ const testimonials_router = require('../USER/testimonials_UR')
 const messages_router = require('../USER/messages_UR')
 const {getUsers} = require('../../../Controllers/users/usersC')
 
-router.get('', (req, res)=>{
-    
-}) 
+router.get('',getUsers) 
 
 
 

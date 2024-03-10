@@ -124,6 +124,7 @@
         title VARCHAR(255) NOT NULL,
         content TEXT DEFAULT '',
         img LONGBLOB NOT NULL,
+        imgDescription VARCHAR(255) NOT NULL,
         position INT DEFAULT 0,
         page INT(11) NOT NULL,
         createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

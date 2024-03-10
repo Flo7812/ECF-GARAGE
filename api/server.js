@@ -25,8 +25,9 @@ api.listen(PORT, async()=>{
 
 /********** Controllers Requires ******/
 
-const { getCardsCars } = require('./Controllers/cars/carsC')
-const { getValidateTestimonials } = require('./Controllers/Testimonials/testimonialsC')
+// const { getCardsCars } = require('./Controllers/cars/carsC')
+// const { getValidateTestimonials } = require('./Controllers/Testimonials/testimonialsC')
+const { getSectionsHome } = require('./Controllers/sections/sectionsC')
 
 /*********** Router Requires **********/
 
@@ -41,7 +42,10 @@ const admin_router = require('./Routes/Private/ADMIN/dashboard_AR')
 
 
 /*********** Router **********/
-api.get('', getValidateTestimonials, getCardsCars)
+api.get('',(req, res)=>{
+    res.send('hello from node')
+})
+api.use('/home', getSectionsHome)
 api.use('/cars', cars_router)
 api.use('/services', sections_router)
 api.use('/testimonials', testimony_router)

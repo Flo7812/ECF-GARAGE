@@ -38,6 +38,26 @@ Model.getId = async function(name, ser, des){
             // throw new Error("this model with this id doesn\'t exist ")
         }
 }
+Model.getName = async function(id){
+    try {
+        const modelName =  await Model.findByPk(id)
+        return modelName.model.name
+    } catch (error) {
+        console.log(error)
+        return
+    }
+}
+
+Model.getFullName = async function(id){
+    try {
+        const modelName =  await Model.findByPk(id)
+        return modelName
+        return {model: modelName.name, serie: modelName.serie, description : modelName.description}
+    } catch (error) {
+        console.log(error)
+        return
+    }
+}
 
 Model.getByName = async function(n){
     const name = toFirstStrUppC(n)

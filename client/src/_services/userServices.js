@@ -1,7 +1,7 @@
 import Axios from "./callerServices.js"
 
 const getUsers = ()=>{
-    return Axios.get('/admin/users')
+    return Axios.get('/admin/dashboard')
 }
 const getUser = ()=>{
     return Axios.get('/admin/users/'+uid)
@@ -9,7 +9,7 @@ const getUser = ()=>{
 const addUser = (datas)=>{
     return Axios.put('/admin/users', datas)
 }
-const patchUser = ()=>{
+const updateUser = ()=>{
     return Axios.patch('/admin/users/'+uid)
 }
 const logiqueDeleteUser = ()=>{
@@ -25,7 +25,7 @@ export const userServices = {
     getUser,
     getUsers,
     addUser,
-    patchUser,
+    updateUser,
     logiqueDeleteUser,
     deleteUser
 

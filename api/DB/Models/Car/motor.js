@@ -26,38 +26,58 @@ const Motor = sequelize.define('car_motor',{
 
 
 Motor.getMotorsByType= async function(n){
-    const name = toFirstStrUppC(n)
-    const motors = await Motor.findAll({where:{type : name}})
-    if(!!motors){
-        return motors
-    }else{
-        throw new Error("this motor with this name doesn\'t exist")
+    try {
+        const name = toFirstStrUppC(n)
+        const motors = await Motor.findAll({where:{type : name}})
+        if(!!motors){
+            return motors
+        }else{
+            return
+            // throw new Error("this motor with this name doesn\'t exist")
+        }
+    } catch (error) {
+        console.log(error)
+        return
+            // throw new Error("this motor with this name doesn\'t exist")
     }
+    
+    
 }
 
 
 
 
-Motor.getFullMotorbyID = async function(id){
+Motor.getFullMotor= async function(id){
+    try {
         const motor = await Motor.findByPk(id)
-        if(motor){
-            if(!!motor.description){
-                return `${motor.type} ${motor.description}`
-            }else{
-                return motor.type
-            }
+        return motor
+        return {motor : motor.motorType, description: motor.description}
+        if(!!motor){
+            return {motor : motor.motorType, description: motor.description}
         }else{
-            throw new Error("this motor with this id doesn\'t exist")
+            return
+        // throw new Error("this motor with this id doesn\'t exist")
         }
+    } catch (error) {
+        console.log(error);
+        return
+        // throw new Error("this motor with this id doesn\'t exist")
+    }
 }
     
 Motor.getId = async function(type, des){
-        const name = toFirstStrUppC(type)
 
-        const motor = await Motor.findOne({where:{type : name, description: des}})
-        if(!!motor){
-            return motor.id
-        }else{
+        try {
+            const name = toFirstStrUppC(type)
+            const motor = await Motor.findOne({where:{type : name, description: des}})
+            if(!!motor){
+                return motor.id
+            }else{
+                return
+                // throw new Error("this motor with this type and description doesn\'t exist")
+            }
+        } catch (error) {
+            console.log(error);
             return
             // throw new Error("this motor with this type and description doesn\'t exist")
         }

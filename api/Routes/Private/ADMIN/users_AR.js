@@ -2,7 +2,7 @@ const express = require('express')
 let router = express.Router()
 const { getUsers, getUserById, addUser, modifyUserById, softDeleteUseById, restoreUserById, trashDeleteUserById, getDeletedUsers } = require('../../../Controllers/users/usersC')
 const {} = require('../../../Controllers/sections/sectionsC')
-// const {} = require('../../../Controllrs/sections/shedulesC')
+// const {} = require('../../../Controllers/sections/shedulesC')
 
 router.get('', getUsers)
 

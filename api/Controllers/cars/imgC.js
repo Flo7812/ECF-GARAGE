@@ -13,11 +13,15 @@ exports.getImgByName = async function(req, res){
     }
 }
 
+
+
+
 exports.addImages = async function (req, res){
     try {
         if(req.files.img1 === undefined){
             return res.status(400).json({message: "data(s) missing images"})
         }
+        console.log(req.files);
         let img1 = req.files.img1[0].buffer
         let img1description = req.files.img1[0].originalname
         let img2 
@@ -28,14 +32,14 @@ exports.addImages = async function (req, res){
         let img4description
         let img5
         let img5description
-        req.files.img2 === undefined ? img2 = null  : img2 = req.files.img2[0].buffer;
-        req.files.img2 === undefined ? img2description = null  : img2description = req.files.img2[0].originalname;
-        req.files.img3 === undefined ? img3 = null  : img3 = req.files.img3[0].buffer;
-        req.files.img3 === undefined ? img3description = null  : img3description = req.files.img3[0].originalname;
-        req.files.img4 === undefined ? img4 = null :  img4 = req.files.img4[0].buffer;
-        req.files.img4 === undefined ? img4description = null  : img4description = req.files.img4[0].originalname;
-        req.files.img5 === undefined ? img5 = null  : img5 = req.files.img5[0].buffer;
-        req.files.img5 === undefined ? img5description = null  : img5description = req.files.img5[0].originalname;
+        req.files.img2 === undefined ? img2 = ''  : img2 = req.files.img2[0].buffer;
+        req.files.img2 === undefined ? img2description = ''  : img2description = req.files.img2[0].originalname;
+        req.files.img3 === undefined ? img3 = ''  : img3 = req.files.img3[0].buffer;
+        req.files.img3 === undefined ? img3description = ''  : img3description = req.files.img3[0].originalname;
+        req.files.img4 === undefined ? img4 = '' :  img4 = req.files.img4[0].buffer;
+        req.files.img4 === undefined ? img4description = ''  : img4description = req.files.img4[0].originalname;
+        req.files.img5 === undefined ? img5 = ''  : img5 = req.files.img5[0].buffer;
+        req.files.img5 === undefined ? img5description = ''  : img5description = req.files.img5[0].originalname;
 
         const gallery = {
             img1,
@@ -66,9 +70,7 @@ exports.addImages = async function (req, res){
 }
 
 exports.deleteImages = async function(req, res){
-    console.log('enfin la ');
     let imgId = parseInt(req.params.id)
-    console.log(req.params.id);
     if(!imgId){
         return res.status(400).json({message: "id parameter missing"})
     }

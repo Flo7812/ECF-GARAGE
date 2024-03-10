@@ -19,7 +19,11 @@ const Section = sequelize.define('section',{
     },
     img:{
         type: DataTypes.BLOB,
-        
+        allowNull: false
+    },
+    imgDescription:{
+        type: DataTypes.STRING,
+        allowNull: false
     },
     position:{
         type: DataTypes.INTEGER,

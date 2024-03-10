@@ -110,15 +110,15 @@ export default function CreateCar(){
                     <fieldset>
                         <legend>Images</legend>
                         <label htmlFor="img1">image 1</label>
-                            <input id="img1" className="input__info" type="file" name="img1" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                            <input id="img1" className="input__info" type="file" name="img1" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} />  
                         <label htmlFor="img2">image 2</label>
-                            <input id="img2" className="input__info" type="file" name="img2" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                            <input id="img2" className="input__info" type="file" name="img2" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} />  
                         <label htmlFor="img3">image 3</label>
-                            <input id="img3" className="input__info" type="file" name="img3" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                            <input id="img3" className="input__info" type="file" name="img3" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} />  
                         <label htmlFor="img4">image 4</label>
-                            <input id="img4" className="input__info" type="file" name="img4" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                            <input id="img4" className="input__info" type="file" name="img4" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} />  
                         <label htmlFor="img5">image 5</label>
-                            <input id="img5" className="input__info" type="file" name="img5" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} /* onClick={(e) => (e.target.value = null)}  *//>  
+                            <input id="img5" className="input__info" type="file" name="img5" multiple accept="image/jpg, image/jpeg, image/png, image/svg"  onChange={handleImageChange} />  
                     </fieldset>
                     <fieldset className="">
                         <legend>Informations Vendeur</legend>

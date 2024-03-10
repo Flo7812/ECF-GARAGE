@@ -9,21 +9,17 @@ async function initDBTables(){
         const route1 = path.join(__dirname, '..', '..', '..', 'assets', 'Logo1.png')
         const route2 = path.join(__dirname, '..', '..', '..', 'assets', 'LogoVoitureColoriage.png')
         const route3 = path.join(__dirname, '..', '..', '..', 'assets', 'Screenshot 2024-02-20 230942.png')
-        const route4 = path.join(__dirname, '..', '..', '..', 'assets', 'Sidous.jpeg')
+        const route4 = path.join(__dirname, '..', '..', '..', 'assets', 'Sidous.jpg')
         const images = {route1, route2, route3, route4}
         const newArray = []
         const fsrf = util.promisify(fs.readFile)
         for (const route in images) {
             const data =  await fsrf(images[route])
-            // console.log(data);
             const arrayName = images[route].split('\\');
-            // console.log(arrayName);
             const name = arrayName[arrayName.length - 1];
-            // console.log(name);
             let image = {img1: data, img1description : name}
             newArray.push(image)
         }
-        // console.log(newArray);
         await DBmodels.Image.bulkCreate(newArray) 
 
         await DBmodels.UserRole.bulkCreate([
@@ -45,24 +41,50 @@ async function initDBTables(){
             await DBmodels.Model.bulkCreate([
                     {
                         name: 'Clio',
-                        serie: '3'
+                        serie: '3',
+                        description:''
                     },
                     {
                         name: 'Zoe',
-                        serie: '1'
+                        serie: '1',
+                        description:''
                     },
-                    {name: 'Springs'},
-                    {name: '206'},
-                    {name: 'C1'},
+                    {
+                        name: 'Springs',
+                        serie: '',
+                        description:''
+                    },
+                    {
+                        name: '206',
+                        serie: '',
+                        description:''
+                    },
+                    {
+                        name: 'C1',
+                        serie: '',
+                        description:''
+                    },
                 ])
                 .then(()=>console.log('instances Models OK'))
                 .catch((e)=> console.log('Unable to create instances of Table Models', e))
 
             await DBmodels.Motor.bulkCreate([
-                    {type: 'Essence'},
-                    {type: 'Diesel'},
-                    {type: 'Hybride'},
-                    {type: 'Electrique'},
+                    {
+                        type: 'Essence',
+                        description:''
+                    },
+                    {
+                        type: 'Diesel',
+                        description:''
+                    },
+                    {
+                        type: 'Hybride',
+                        description:''
+                    },
+                    {
+                        type: 'Electrique',
+                        description:''
+                    },
                     {
                         type: 'Essence',
                         description: '1L6'
@@ -290,11 +312,35 @@ async function initDBTables(){
                     {
                         title: 'Restauration',
                         content: 'Redonnez vie au vehicule des grands-parents',
+                        position:'4',
                         page:'2'
                     }
                 ])
                     .then(()=>console.log('instances Sections OK'))
                     .catch((e)=> console.log('Unable to create instances of Table Sections', e))
+
+                    const image1 = path.join(__dirname, '..', '..', '..', 'assets', 'event.png')
+                    const image2 = path.join(__dirname, '..', '..', '..', 'assets', 'accueil.png')
+                    const image3 = path.join(__dirname, '..', '..', '..', 'assets', 'vente.png')
+                    const image4 = path.join(__dirname, '..', '..', '..', 'assets', 'batterie.png')
+                    const image5 = path.join(__dirname, '..', '..', '..', 'assets', 'reparation.png')
+                    const image6 = path.join(__dirname, '..', '..', '..', 'assets', 'images.png')
+                    const image7 = path.join(__dirname, '..', '..', '..', 'assets', 'entretien.png')
+                    const image8 = path.join(__dirname, '..', '..', '..', 'assets', 'restauration.png')
+                    const imagesSet = {image1, image2, image3, image4, image5, image6, image7, image8  }
+                    const imagesSetArray = []
+                    const fsrfile = util.promisify(fs.readFile)
+                    for (const img in imagesSet) {
+                        const data =  await fsrfile(imagesSet[img])
+                        const arrayName = imagesSet[img].split('\\');
+                        const name = arrayName[arrayName.length - 1];
+                        let image = {img: data, imgDescription : name}
+                        imagesSetArray.push(image)
+                    }
+                    const sections = await DBmodels.Section.findAll()
+                    for (const section of sections) {
+                        await section.update(imagesSetArray[section.id - 1])
+                    }
 
                 await DBmodels.Message.bulkCreate([
                     {

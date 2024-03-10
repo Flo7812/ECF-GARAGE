@@ -109,11 +109,11 @@ Car.belongsTo(User,{
 })
 User.hasMany(Car, {foreignKey: 'deletedBy'})
 
-Car.belongsTo(Image,{
+Car.belongsTo(Image,{foreignKey: 'images'})
+Image.hasOne(Car,{
     onDelete: 'CASCADE',
     foreignKey: 'images'
 })
-Image.hasOne(Car,{foreignKey: 'images'})
 
 
 /*************************************************/

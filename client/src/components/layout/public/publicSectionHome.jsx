@@ -1,17 +1,33 @@
-
+import { useState, useEffect } from "react";
+import {sectionsServices} from '../../../_services/sectionsServices'
 
 const PublicSectionHome = () => {
+
+    const [sections, setSections]= useState()
+        
+    useEffect(()=>{
+        sectionsServices.getSectionsHome()
+        .then(sections =>{
+            const allSections = sections.data.data
+            setSections(allSections)
+        })
+        .catch(e => console.log(e))
+    },[])
+
     return (
 
         <section className="home-accueil" >
-            <h1>Accueil</h1>
+            {sections && sections.length > 0 && (
+            <>
             <button className="selecteur">1</button>
-            <img src="/src/__assets/LogoVoitureColoriage.png" alt="" />
+            <img /* style={{width:'600px', height:'400px', position:'relative'}} */ src={`data:image/${sections[0].imgDescription.split('.')[1]};base64, ${sections[0].img}`} alt={sections[0].imgDescription} />
             <button className="selecteur">2</button>
                 <div>
-                    <h2>Titre</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea voluptatibus recusandae non exercitationem maiores consequatur eligendi obcaecati accusantium, error corrupti, veritatis quo porro laudantium! Dolore quasi impedit neque maxime repellendus.</p>
-                </div>
+                    <h1>{sections[0].title}</h1>
+                    <p>{sections[0].content}</p>
+                </div> 
+                </> 
+                )}
         </section>
 
     );
